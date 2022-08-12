@@ -2,11 +2,13 @@
 #![no_main]
 #![feature(naked_functions, asm_sym, asm_const)]
 #![deny(warnings)]
+#![allow(non_snake_case)]
 
 use sbi_rt::*;
-#[macro_use]
-use output::*;
-use output::{log};
+// #[macro_use]
+use output::log::{error, debug, warn, trace, info};
+// use output::{set_log_level, init_console};
+// use output::*;
 
 #[naked]
 #[no_mangle]
@@ -48,7 +50,13 @@ fn clear_bss() {
 extern "C" fn primary_rust_main() -> ! {
     clear_bss();
     output::init_console(&Console);
-    output::set_log_level(option_env!("LOG"));
+    output::set_log_level(option_env!("DEBUG"));
+    
+    error!("[KERNEL] you are now inside the main function");
+    trace!("[KERNEL] you are now inside the main function");
+    info!("[KERNEL] you are now inside the main function");
+    warn!("[KERNEL] you are now inside the main function");
+    debug!("[KERNEL] you are now inside the main function");
     
     system_reset(RESET_TYPE_SHUTDOWN, RESET_REASON_NO_REASON);
     unreachable!()
@@ -58,4 +66,14 @@ extern "C" fn primary_rust_main() -> ! {
 fn panic(_: &core::panic::PanicInfo) -> ! {
     system_reset(RESET_TYPE_SHUTDOWN, RESET_REASON_SYSTEM_FAILURE);
     unreachable!()
+}
+
+struct Console;
+
+/// 为 `Console` 实现 `output::Console` trait。
+impl output::Console for Console {
+    fn put_char(&self, c: u8) {
+        #[allow(deprecated)]
+        legacy::console_putchar(c as _);
+    }
 }
