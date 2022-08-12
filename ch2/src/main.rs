@@ -4,6 +4,9 @@
 #![deny(warnings)]
 
 use sbi_rt::*;
+#[macro_use]
+use output::*;
+use output::{log};
 
 #[naked]
 #[no_mangle]
@@ -44,10 +47,9 @@ fn clear_bss() {
 
 extern "C" fn primary_rust_main() -> ! {
     clear_bss();
-    for c in b"Hello, world!" {
-        #[allow(deprecated)]
-        legacy::console_putchar(*c as _);
-    }
+    output::init_console(&Console);
+    output::set_log_level(option_env!("LOG"));
+    
     system_reset(RESET_TYPE_SHUTDOWN, RESET_REASON_NO_REASON);
     unreachable!()
 }

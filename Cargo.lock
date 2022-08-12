@@ -3,6 +3,13 @@
 version = 3
 
 [[package]]
+name = "SCHEDULE"
+version = "0.1.0"
+dependencies = [
+ "output",
+]
+
+[[package]]
 name = "aho-corasick"
 version = "0.7.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -130,6 +137,13 @@ version = "0.1.0"
 source = "git+https://github.com/YdrMaster/command-ext.git?rev=f25befb#f25befb0b5a58e3e75fb3a891d6cc5969a13d93c"
 dependencies = [
  "lazy_static",
+]
+
+[[package]]
+name = "config"
+version = "0.1.0"
+dependencies = [
+ "SCHEDULE",
 ]
 
 [[package]]
@@ -425,6 +439,7 @@ dependencies = [
 name = "syscall"
 version = "0.1.0"
 dependencies = [
+ "config",
  "riscv 0.6.0",
  "spin",
 ]
