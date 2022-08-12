@@ -6,7 +6,9 @@ version = 3
 name = "SCHEDULE"
 version = "0.1.0"
 dependencies = [
+ "lazy_static",
  "output",
+ "riscv",
 ]
 
 [[package]]
@@ -178,6 +180,9 @@ name = "lazy_static"
 version = "1.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
+dependencies = [
+ "spin 0.5.2",
+]
 
 [[package]]
 name = "libc"
@@ -227,7 +232,7 @@ name = "output"
 version = "0.0.1"
 dependencies = [
  "log",
- "spin",
+ "spin 0.9.4",
 ]
 
 [[package]]
@@ -365,6 +370,12 @@ checksum = "388a1df253eca08550bef6c72392cfe7c30914bf41df5269b68cbd6ff8f570a3"
 
 [[package]]
 name = "spin"
+version = "0.5.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6e63cff320ae2c57904679ba7cb63280a3dc4613885beafb148ee7bf9aa9042d"
+
+[[package]]
+name = "spin"
 version = "0.9.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7f6002a767bff9e83f8eeecf883ecb8011875a21ae8da43bffb817a57e78cc09"
@@ -401,7 +412,7 @@ version = "0.1.0"
 dependencies = [
  "config",
  "riscv",
- "spin",
+ "spin 0.9.4",
 ]
 
 [[package]]
