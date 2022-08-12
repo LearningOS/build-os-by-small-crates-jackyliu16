@@ -1,5 +1,7 @@
 #![no_std]
 #![no_main]
+#![allow(non_snake_case)]
+
 /// trait SCHEDULE {
 ///     pub fn init(),
 ///     // pub fn run_next(),

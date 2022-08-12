@@ -82,6 +82,7 @@ dependencies = [
 name = "ch2"
 version = "0.0.1"
 dependencies = [
+ "config",
  "output",
  "r0",
  "sbi-rt",

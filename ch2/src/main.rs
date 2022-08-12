@@ -7,8 +7,7 @@
 use sbi_rt::*;
 // #[macro_use]
 use output::log::{error, debug, warn, trace, info};
-// use output::{set_log_level, init_console};
-// use output::*;
+use config::SCHEDULE;
 
 #[naked]
 #[no_mangle]
@@ -58,9 +57,15 @@ extern "C" fn primary_rust_main() -> ! {
     warn!("[KERNEL] you are now inside the main function");
     debug!("[KERNEL] you are now inside the main function");
     
+    SCHEDULE::init();
+
     system_reset(RESET_TYPE_SHUTDOWN, RESET_REASON_NO_REASON);
     unreachable!()
 }
+
+
+
+
 
 #[panic_handler]
 fn panic(_: &core::panic::PanicInfo) -> ! {
