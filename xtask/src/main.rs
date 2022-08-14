@@ -1,5 +1,3 @@
-#![feature(path_file_prefix)]
-
 mod user;
 
 #[macro_use]
@@ -15,9 +13,6 @@ use std::{
 };
 
 const TARGET_ARCH: &str = "riscv64imac-unknown-none-elf";
-const CH2_APP_BASE: u64 = 0x8040_0000;
-const CH3_APP_BASE: u64 = 0x8040_0000;
-const CH3_APP_STEP: u64 = 0x0020_0000;
 
 static PROJECT: Lazy<&'static Path> =
     Lazy::new(|| Path::new(std::env!("CARGO_MANIFEST_DIR")).parent().unwrap());
@@ -71,17 +66,9 @@ impl BuildArgs {
     fn make(&self) -> PathBuf {
         let mut env: HashMap<&str, OsString> = HashMap::new();
         let package = match self.ch {
-            1 => {
-                if self.lab {
-                    "ch1-lab"
-                } else {
-                    "ch1"
-                }
-            }
-            2 => {
-                // get application binary mirror image package and insert it
-                user::build_for(2, false);
-                env.insert("APP_BASE", format!("{CH2_APP_BASE:#x}").into());
+            1 => if self.lab { "ch1-lab" } else { "ch1" }.to_string(),
+            2 | 3 | 4 => {
+                user::build_for(self.ch, false);
                 env.insert(
                     "APP_ASM",
                     TARGET
@@ -90,21 +77,7 @@ impl BuildArgs {
                         .as_os_str()
                         .to_os_string(),
                 );
-                "ch2"
-            }
-            3 => {
-                user::build_for(3, false);
-                env.insert("APP_BASE", format!("{CH3_APP_BASE:#x}").into());
-                env.insert("APP_STEP", format!("{CH3_APP_STEP:#x}").into());
-                env.insert(
-                    "APP_ASM",
-                    TARGET
-                        .join("debug")
-                        .join("app.asm")
-                        .as_os_str()
-                        .to_os_string(),
-                );
-                "ch3"
+                format!("ch{}", self.ch)
             }
             _ => unreachable!(),
         };
@@ -122,7 +95,6 @@ impl BuildArgs {
                 cargo.release();
             })
             .target(TARGET_ARCH);
-        // ???
         for (key, value) in env {
             build.env(key, value);
         }
@@ -131,7 +103,7 @@ impl BuildArgs {
         let elf = TARGET
             .join(if self.release { "release" } else { "debug" })
             .join(package);
-        strip_all(elf)
+        objcopy(elf, true)
     }
 }
 
@@ -171,14 +143,16 @@ impl QemuArgs {
             .invoke();
     }
 }
-/// delete all ELF header and symbol to get a Binary mirror image
-fn strip_all(elf: impl AsRef<Path>) -> PathBuf {
+
+fn objcopy(elf: impl AsRef<Path>, binary: bool) -> PathBuf {
     let elf = elf.as_ref();
     let bin = elf.with_extension("bin");
     BinUtil::objcopy()
-        .arg("--binary-architecture=riscv64")
         .arg(elf)
-        .args(["--strip-all", "-O", "binary"])
+        .arg("--strip-all")
+        .conditional(binary, |binutil| {
+            binutil.args(["-O", "binary"]);
+        })
         .arg(&bin)
         .invoke();
     bin

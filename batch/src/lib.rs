@@ -139,7 +139,8 @@ lazy_static! {
     static ref APP_MANAGER: UPSafeCell<AppManager> = unsafe {
         UPSafeCell::new({
             extern "C" {
-                static mut _num_app: u64;
+                // static mut _num_app: u64;
+                fn _num_app();
             }
             // println!("{}", _num_app);
             // get _num_app
