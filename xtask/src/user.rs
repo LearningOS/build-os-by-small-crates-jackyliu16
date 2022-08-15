@@ -1,7 +1,7 @@
 ﻿use crate::*;
 use command_ext::{Cargo, CommandExt};
 use serde_derive::Deserialize;
-use std::{ffi::OsStr, fs::File, io::Write, path::PathBuf};
+use std::{ffi::OsStr, fs::File, io::Write, path::PathBuf, fs::{canonicalize, read_dir}};
 
 #[derive(Deserialize)]
 struct Ch2 {
@@ -97,45 +97,130 @@ pub fn build_for(ch: u8, release: bool) {
         .join(if release { "release" } else { "debug" })
         .join("app.asm");
     let mut ld = File::create(asm).unwrap();
+
+    // base on lab1-os3 how to create a app_link.S to like all information
+
     writeln!(
         ld,
         "\
-    .global apps
+    .global _num_app
     .section .data
     .align 3
-apps:
-    .quad {base:#x}
-    .quad {step:#x}
+_num_app:
     .quad {}",
         bins.len(),
-    )
-    .unwrap();
-
+    ).unwrap();
+    
+    // statement two all quad which could help us to divide each sections
     (0..bins.len()).for_each(|i| {
         writeln!(
             ld,
             "\
-    .quad app_{i}_start"
-        )
-        .unwrap()
+                .quad app_{i}_start"
+        ).unwrap();
     });
 
     writeln!(
         ld,
         "\
-    .quad app_{}_end",
+        .quad app_{}_end",
         bins.len() - 1
-    )
-    .unwrap();
+    ).unwrap();
 
-    bins.iter().enumerate().for_each(|(i, path)| {
+    bins.iter().enumerate().for_each(|(i, path)|{
         writeln!(
             ld,
-            "
-app_{i}_start:
-    .incbin {path:?}
-app_{i}_end:",
-        )
-        .unwrap();
+            "\
+        .section .data
+        .global app_{i}_start
+        .global app_{i}_end
+    app_{i}_start:
+        .incbin {path:?}
+    app_{i}_end:"
+            ).unwrap();
     });
+
+    // bins.iter().enumerate().for_each(|(i, path)| {
+    //     writeln!(
+    //         ld,
+    //         "
+    //     .app_{i}_start:
+    //         .incbin {path:?}
+    //     .app_{i}_end:",
+    //     ).unwrap();
+    // });
+
+    // println!("finish linked!");
+
+//     writeln!(
+//         f,
+//         r#"
+//     .align 3
+//     .section .data
+//     .global _num_app
+// _num_app:
+//     .quad {}"#,
+//         apps.len()
+//     )?;
+
+//     for i in 0..apps.len() {
+//         writeln!(f, r#"    .quad app_{}_start"#, i)?;
+//     }
+//     writeln!(f, r#"    .quad app_{}_end"#, apps.len() - 1)?;
+
+//     for (idx, app) in apps.iter().enumerate() {
+//         println!("app_{}: {}", idx, app);
+//         writeln!(
+//             f,
+//             r#"
+//     .section .data
+//     .global app_{0}_start
+//     .global app_{0}_end
+// app_{0}_start:
+//     .incbin "{2}{1}.bin"
+// app_{0}_end:"#,
+//             idx, app, TARGET_PATH
+//         )?;
+//     }    
+//     writeln!(
+//         ld,
+//         "\
+//     .global apps
+//     .section .data
+//     .align 3
+// apps:
+//     .quad {base:#x}
+//     .quad {step:#x}
+//     .quad {}",
+//         bins.len(),
+//     )
+//     .unwrap();
+
+//     (0..bins.len()).for_each(|i| {
+//         writeln!(
+//             ld,
+//             "\
+//     .quad app_{i}_start"
+//         )
+//         .unwrap()
+//     });
+
+//     writeln!(
+//         ld,
+//         "\
+//     .quad app_{}_end",
+//         bins.len() - 1
+//     )
+//     .unwrap();
+
+//     bins.iter().enumerate().for_each(|(i, path)| {
+//         writeln!(
+//             ld,
+//             "
+// app_{i}_start:
+//     .incbin {path:?}
+// app_{i}_end:",
+//         )
+//         .unwrap();
+//     });
 }

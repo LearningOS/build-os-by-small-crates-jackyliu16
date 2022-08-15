@@ -6,8 +6,13 @@
 
 use sbi_rt::*;
 // #[macro_use]
-use output::log::{error, debug, warn, trace, info};
+// use output::log::{error, debug, warn, trace, info};
+// use output::*;
+use output::log::*;
 use config::SCHEDULE;
+
+// 内联app.asm 进到程序中来
+core::arch::global_asm!(include_str!(env!("APP_ASM")));
 
 #[naked]
 #[no_mangle]
@@ -39,6 +44,7 @@ fn clear_bss() {
     // unsafe {
     //     core::slice::from_raw_parts_mut(sbss as usize as *mut u8, ebss as usize - sbss as usize)
     //         .fill(0);
+    // }
     extern "C" {
         static mut sbss: u64;
         static mut ebss: u64;
@@ -62,9 +68,6 @@ extern "C" fn primary_rust_main() -> ! {
     system_reset(RESET_TYPE_SHUTDOWN, RESET_REASON_NO_REASON);
     unreachable!()
 }
-
-
-
 
 
 #[panic_handler]

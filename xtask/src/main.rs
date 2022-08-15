@@ -10,6 +10,7 @@ use std::{
     collections::HashMap,
     ffi::OsString,
     path::{Path, PathBuf},
+    fs::canonicalize,
 };
 
 const TARGET_ARCH: &str = "riscv64imac-unknown-none-elf";
@@ -68,7 +69,7 @@ impl BuildArgs {
         let package = match self.ch {
             1 => if self.lab { "ch1-lab" } else { "ch1" }.to_string(),
             2 | 3 | 4 => {
-                user::build_for(self.ch, false);
+                user::build_for(self.ch, false);    // adding a ld file into PathBuf
                 env.insert(
                     "APP_ASM",
                     TARGET
@@ -95,6 +96,7 @@ impl BuildArgs {
                 cargo.release();
             })
             .target(TARGET_ARCH);
+        let env2 = env.clone();
         for (key, value) in env {
             build.env(key, value);
         }
@@ -103,6 +105,11 @@ impl BuildArgs {
         let elf = TARGET
             .join(if self.release { "release" } else { "debug" })
             .join(package);
+    
+        println!("=========link_app.S Check==============");
+        let app_asm = env2.get("APP_ASM").unwrap();
+        println!("{:?}", app_asm);
+            
         objcopy(elf, true)
     }
 }

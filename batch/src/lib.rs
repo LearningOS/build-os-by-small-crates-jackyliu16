@@ -25,16 +25,16 @@ use output::log::*;
 
 pub fn init() { 
     info!("using init function from batch");
-    APP_MANAGER.exclusive_access().print_app_info();
+    // APP_MANAGER.exclusive_access().print_app_info();
 }
 pub fn suspend_run_next() {
     error!("using suspend_run_next which haven't been realize in batch");
-    run_next_app();
+    // run_next_app();
 }
 
 pub fn exit_run_next() {
     info!("exit and run next application:");
-    run_next_app();
+    // run_next_app();
 }
 
 
