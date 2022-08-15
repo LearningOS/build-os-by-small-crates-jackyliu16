@@ -65,7 +65,6 @@ lazy_static! {
                 // static mut _num_app: u64;
                 fn _num_app();
             }
-            // println!("{}", _num_app);
             // get _num_app
             let num_app_ptr = _num_app as usize as *const usize;
             // read number of "should run" apps 
@@ -74,7 +73,7 @@ lazy_static! {
             let mut app_start: [usize; MAX_APP_NUM + 1] = [0; MAX_APP_NUM + 1];
             // read address of app from _num_app, should from [1..?]
             let app_start_raw: &[usize] =
-                core::slice::from_raw_parts(num_app_ptr.add(1), num_app + 1);
+            core::slice::from_raw_parts(num_app_ptr.add(1), num_app + 1);
             // app_start[0..num_app] stores app start addresses
             app_start[..=num_app].copy_from_slice(app_start_raw);
             // store infos into AppManager
