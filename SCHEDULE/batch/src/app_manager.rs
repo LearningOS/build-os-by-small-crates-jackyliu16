@@ -1,84 +1,6 @@
-#![no_std]
-#![no_main]
-#![allow(non_snake_case)]
-
-/// trait SCHEDULE {
-///     pub fn init(),
-///     // pub fn run_next(),
-///     pub fn suspend_run_next(),
-///     pub fn exit_run_next(),
-/// }
-
-mod syscall_provide;
-mod context;
-mod up;
-
-// mod app_manager;
+use crate::config::*;
 use lazy_static::*;
-use crate::context::TrapContext;
-use crate::up::UPSafeCell;
-pub use syscall_provide::sys_exit;
-
-#[allow(unused)]
-#[macro_use]
 use output::log::*;
-
-pub fn init() { 
-    info!("using init function from batch");
-    // APP_MANAGER.exclusive_access().print_app_info();
-}
-pub fn suspend_run_next() {
-    error!("using suspend_run_next which haven't been realize in batch");
-    // run_next_app();
-}
-
-pub fn exit_run_next() {
-    info!("exit and run next application:");
-    // run_next_app();
-}
-
-
-const USER_STACK_SIZE: usize = 4096;
-const KERNEL_STACK_SIZE: usize = 4096 * 2;
-const MAX_APP_NUM: usize = 16;
-const APP_BASE_ADDRESS: usize = 0x80400000;
-const APP_SIZE_LIMIT: usize = 0x20000;
-
-#[repr(align(4096))]
-struct KernelStack {
-    data: [u8; KERNEL_STACK_SIZE],
-}
-
-#[repr(align(4096))]
-struct UserStack {
-    data: [u8; USER_STACK_SIZE],
-}
-
-static KERNEL_STACK: KernelStack = KernelStack {
-    data: [0; KERNEL_STACK_SIZE],
-};
-static USER_STACK: UserStack = UserStack {
-    data: [0; USER_STACK_SIZE],
-};
-
-impl KernelStack {
-    fn get_sp(&self) -> usize {
-        self.data.as_ptr() as usize + KERNEL_STACK_SIZE
-    }
-    pub fn push_context(&self, cx: TrapContext) -> &'static mut TrapContext {
-        let cx_ptr = (self.get_sp() - core::mem::size_of::<TrapContext>()) as *mut TrapContext;
-        unsafe {
-            *cx_ptr = cx;
-        }
-        unsafe { cx_ptr.as_mut().unwrap() }
-    }
-}
-
-impl UserStack {
-    fn get_sp(&self) -> usize {
-        self.data.as_ptr() as usize + USER_STACK_SIZE
-    }
-}
 
 struct AppManager {
     num_app: usize,
@@ -118,6 +40,7 @@ impl AppManager {
             self.app_start[app_id + 1] - self.app_start[app_id],
         );
         let app_dst = core::slice::from_raw_parts_mut(APP_BASE_ADDRESS as *mut u8, app_src.len());
+        debug!("finish APP_MANAGER.load_app");
         app_dst.copy_from_slice(app_src);
     }
 
@@ -129,8 +52,6 @@ impl AppManager {
         self.current_app += 1;
     }
 }
-#[macro_use]
-use output::*;
 // lazy_statc!{}: dynamicly generate global static variable
 // lazy means only the first met initiate the variable.
 // init static APP_MANAGER
@@ -163,6 +84,9 @@ lazy_static! {
         })
     };
 }
+pub fn print_app_info() {
+    APP_MANAGER.exclusive_access().print_app_info();
+}
 
 /// 1. load instruction
 /// 2. push TrapContext into kernelStack
@@ -173,10 +97,12 @@ pub fn run_next_app() -> ! {
         app_manager.load_app(current_app);
     }
     // copy app instruction to APP_BASR_ADDRESS
-    app_manager.move_to_next_app();
+    app_manager.move_to_next_app();                 // add account
     drop(app_manager);
     // before this we have to drop local variables related to resources manually
     // and release the resources
+    debug!("APP_BASE_ADDRESS:{:x}", APP_BASE_ADDRESS);
+    debug!("USER_STACK.get_sp:{:X}", USER_STACK.get_sp());
     extern "C" {
         fn __restore(cx_addr: usize);
     }
