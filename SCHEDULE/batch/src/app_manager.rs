@@ -1,6 +1,8 @@
 use crate::config::*;
 use lazy_static::*;
 use output::log::*;
+use basic::*;
+use basic::UPSafeCell;
 
 struct AppManager {
     num_app: usize,
