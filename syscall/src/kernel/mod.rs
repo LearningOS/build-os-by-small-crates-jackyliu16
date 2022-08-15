@@ -1,14 +1,17 @@
-use super::syscall::SyscallId::*;
 
 mod fs;
 use fs::sys_write;
+use super::SyscallId;
 use config::SCHEDULE::sys_exit;
+use output::log::*;
 
-/// syscall handler
-pub fn handler(syscall_id: SyscallId, args: [usize; 6]) -> isize {
+/// syscall handler[这个地方本来想用[usizel; 6]的但是不行]
+pub fn syscall_handler(syscall_id: SyscallId, args: [usize; 3]) -> isize {
+    debug!("sysacall_id: {} args:{:?}", syscall_id.0, args);
     match syscall_id {
-        WRITE => sys_write(args[0], args[1] as *const u8, args[2]),
-        EXIT => sys_exit(args[0] as i32),
-        _ => panic!("Unsupported syscall_id: {}", syscall_id),
-    }
+        SyscallId::WRITE => sys_write(args[0], args[1] as *const u8, args[2]),
+        SyscallId::EXIT => sys_exit(args[0] as i32),
+        _ => panic!("Unsupported syscall_id: {}", syscall_id.0),
+    };
+    0 // TODO 返回值未甄别
 }

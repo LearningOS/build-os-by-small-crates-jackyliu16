@@ -33,6 +33,7 @@ pub fn init() {
     print_app_info();
     run_next_app();
 }
+
 pub fn suspend_run_next() {
     error!("using suspend_run_next which haven't been realize in batch");
     run_next_app();

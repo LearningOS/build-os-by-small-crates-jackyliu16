@@ -6,3 +6,9 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+riscv = { git = "https://gitee.com/rcore-os/riscv", features = ["inline-asm"] }
+syscall = { path = "../syscall", features = ["kernel"] }
+basic = { path = "../config/basic" }
+config = { path = "../config/config" }
+output = { path = "../output" }
+sbi-rt = { git = "https://github.com/rustsbi/sbi-rt", branch = "dev" }

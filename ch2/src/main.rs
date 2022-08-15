@@ -5,14 +5,12 @@
 #![allow(non_snake_case)]
 
 use sbi_rt::*;
-// #[macro_use]
-// use output::log::{error, debug, warn, trace, info};
-// use output::*;
 use output::log::*;
 use config::SCHEDULE;
 
 // 内联app.asm 进到程序中来
-core::arch::global_asm!(include_str!(env!("APP_ASM")));
+core::arch::global_asm!(include_str!(env!("APP_ASM")));     // using by batch
+core::arch::global_asm!(include_str!(env!("TRAP")));        // using by batch
 
 #[naked]
 #[no_mangle]
@@ -63,6 +61,7 @@ extern "C" fn primary_rust_main() -> ! {
     warn!("[KERNEL] you are now inside the main function");
     debug!("[KERNEL] you are now inside the main function");
     
+    trap::init();
     SCHEDULE::init();
 
     system_reset(RESET_TYPE_SHUTDOWN, RESET_REASON_NO_REASON);
@@ -70,11 +69,11 @@ extern "C" fn primary_rust_main() -> ! {
 }
 
 
-#[panic_handler]
-fn panic(_: &core::panic::PanicInfo) -> ! {
-    system_reset(RESET_TYPE_SHUTDOWN, RESET_REASON_SYSTEM_FAILURE);
-    unreachable!()
-}
+// #[panic_handler]
+// fn panic(_: &core::panic::PanicInfo) -> ! {
+//     system_reset(RESET_TYPE_SHUTDOWN, RESET_REASON_SYSTEM_FAILURE);
+//     unreachable!()
+// }
 
 struct Console;
 

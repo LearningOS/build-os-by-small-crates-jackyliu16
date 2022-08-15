@@ -1,7 +1,10 @@
+#![no_std]
+#![no_main]
 /// the configuration crate of
 /// 1. static variable
 /// 2. UPSafeCell<T>
 /// 3. TrapContext
+/// 4. panic_handler
 
 
 /// static variable configuration 
@@ -40,8 +43,8 @@ impl TrapContext {
         cx
     }
 }
-
 /// UPSafeCell<T> configuration 
+use core::marker::Sync;
 use core::cell::{RefCell, RefMut};
 
 /// Wrap a static data structure inside it so that we are
@@ -70,4 +73,10 @@ impl<T> UPSafeCell<T> {
     pub fn exclusive_access(&self) -> RefMut<'_, T> {
         self.inner.borrow_mut()
     }
+}
+use sbi_rt::{system_reset, RESET_TYPE_SHUTDOWN, RESET_REASON_SYSTEM_FAILURE};
+#[panic_handler]
+fn panic(_: &core::panic::PanicInfo) -> ! {
+    system_reset(RESET_TYPE_SHUTDOWN, RESET_REASON_SYSTEM_FAILURE);
+    unreachable!()
 }

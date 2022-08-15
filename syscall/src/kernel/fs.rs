@@ -1,3 +1,6 @@
+use output::*;
+use output::log::*;
+
 const FD_STDOUT: usize = 1;
 
 pub fn sys_write(fd: usize, buf: *const u8, len: usize) -> isize {
@@ -9,8 +12,8 @@ pub fn sys_write(fd: usize, buf: *const u8, len: usize) -> isize {
             len as isize
         }
         _ => {
+            error!("unsupported");
             panic!("Unsupported fd in sys_write!");
         }
     }
 }
-

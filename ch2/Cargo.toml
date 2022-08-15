@@ -9,3 +9,4 @@ sbi-rt = { git = "https://github.com/rustsbi/sbi-rt", branch = "dev" }
 r0 = "1.0.0"
 output = { path = "../output" }
 config = { path = "../config/config" }
+trap = { path = "../trap" }

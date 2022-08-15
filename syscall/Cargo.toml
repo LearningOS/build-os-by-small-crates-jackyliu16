@@ -8,8 +8,10 @@ edition = "2021"
 [dependencies]
 spin = "0.9.4"
 riscv = { git = "https://gitee.com/rcore-os/riscv", features = ["inline-asm"] }
+basic = { path = "../config/basic" }
 config = { path = "../config/config" }
+output = {path = "../output"}
 
 [features]
-supervisor = []
+kernel = []
 user = []

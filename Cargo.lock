@@ -6,6 +6,7 @@ version = 3
 name = "SCHEDULE"
 version = "0.1.0"
 dependencies = [
+ "basic",
  "lazy_static",
  "output",
  "riscv",
@@ -44,6 +45,14 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5deb64efa5bd81e31fcd1938615a6d98c82eafcbcd787162b6f63b91d6bac5b3"
 dependencies = [
  "rustc_version",
+]
+
+[[package]]
+name = "basic"
+version = "0.1.0"
+dependencies = [
+ "riscv",
+ "sbi-rt",
 ]
 
 [[package]]
@@ -88,6 +97,7 @@ dependencies = [
  "output",
  "r0",
  "sbi-rt",
+ "trap",
 ]
 
 [[package]]
@@ -427,7 +437,9 @@ dependencies = [
 name = "syscall"
 version = "0.1.0"
 dependencies = [
+ "basic",
  "config",
+ "output",
  "riscv",
  "spin 0.9.4",
 ]
@@ -454,6 +466,18 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8d82e1a7758622a465f8cee077614c73484dac5b836c02ff6a40d5d1010324d7"
 dependencies = [
  "serde",
+]
+
+[[package]]
+name = "trap"
+version = "0.1.0"
+dependencies = [
+ "basic",
+ "config",
+ "output",
+ "riscv",
+ "sbi-rt",
+ "syscall",
 ]
 
 [[package]]

@@ -16,7 +16,7 @@ mod user;
 pub use user::*;
 
 #[cfg(feature = "kernel")]
-mod kernel;
+pub mod kernel;
 
 #[cfg(feature = "kernel")]
 pub use kernel::*;

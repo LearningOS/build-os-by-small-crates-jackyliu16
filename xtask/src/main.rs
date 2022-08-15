@@ -78,6 +78,22 @@ impl BuildArgs {
                         .as_os_str()
                         .to_os_string(),
                 );
+                env.insert(
+                    "TRAP",
+                    TARGET
+                        .join("debug")
+                        .join("trap.S")
+                        .as_os_str()
+                        .to_os_string(),
+                );
+                env.insert(
+                    "SWITCH",
+                    TARGET
+                        .join("debug")
+                        .join("switch.S")
+                        .as_os_str()
+                        .to_os_string(),
+                );
                 format!("ch{}", self.ch)
             }
             _ => unreachable!(),

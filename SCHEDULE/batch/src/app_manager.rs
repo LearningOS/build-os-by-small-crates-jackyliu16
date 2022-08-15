@@ -22,6 +22,9 @@ impl AppManager {
                 self.app_start[i + 1]
             );
         }
+        debug!("KERNEL_STACK:{:X}", KERNEL_STACK.get_sp());
+        debug!("USER_STACK:{:X}", USER_STACK.get_sp());
+        // BC the different between kernel stack and user stack is 0x1000, which indicate we alloc correct.
     }
 
     // load application's binary image file inside the area which start with 0x80400000 ( we put all application here and clear then went we change )
@@ -33,9 +36,9 @@ impl AppManager {
         // clear icache
         // we need to clear instruction-cache 
         // to allow running next app properly.  
-        core::arch::asm!("fence.i");
+        core::arch::asm!("fence.i");            // 调用了一个汇编的东西，实现了清除缓存
         // clear app area, set data from APP_BASE_ADDRESS.. to 0
-        core::slice::from_raw_parts_mut(APP_BASE_ADDRESS as *mut u8, APP_SIZE_LIMIT).fill(0);
+        core::slice::from_raw_parts_mut(APP_BASE_ADDRESS as *mut u8, APP_SIZE_LIMIT).fill(0);   // BC batch we using a same location to load application so this address will be same.
         // copy [app_start..app_end] to [APP_BASE_ADDRESS..] so as to run it
         let app_src = core::slice::from_raw_parts(
             self.app_start[app_id] as *const u8,
