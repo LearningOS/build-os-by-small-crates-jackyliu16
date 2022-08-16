@@ -1,11 +1,13 @@
 ﻿use crate::{ClockId, SyscallId, TimeSpec};
 use native::*;
+use output::log::*;
 // use riscv::register::*;
 
 
 /// see <https://man7.org/linux/man-pages/man2/write.2.html>.
 #[inline]
 pub fn write(fd: usize, buffer: &[u8]) -> isize {
+    debug!("[USER] ecall for write fd:{}", fd);
     unsafe { syscall3(SyscallId::WRITE, fd, buffer.as_ptr() as _, buffer.len()) }
 }
 

@@ -17,7 +17,7 @@ pub trait Console: Sync {
 
     /// 向控制台放置一个字符串。
     ///
-    /// 如果使用了锁，覆盖这个实现以免反复获取和释放锁。
+    /// 如果使用了锁，覆盖这个实现以免反复获取和释放锁。    // 这个地方我额外引入了一个stdout, stdin 的区别，原因在于想顺便根据这个参数完成文件系统操作？
     #[inline]
     fn put_str(&self, s: &str) {
         for c in s.bytes() {

@@ -122,9 +122,9 @@ impl BuildArgs {
             .join(if self.release { "release" } else { "debug" })
             .join(package);
     
-        println!("=========link_app.S Check==============");
-        let app_asm = env2.get("APP_ASM").unwrap();
-        println!("{:?}", app_asm);
+        // println!("=========link_app.S Check==============");
+        // let app_asm = env2.get("APP_ASM").unwrap();
+        // println!("{:?}", app_asm);
             
         objcopy(elf, true)
     }

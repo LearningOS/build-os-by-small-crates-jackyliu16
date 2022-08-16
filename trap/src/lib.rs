@@ -33,10 +33,10 @@ pub fn init() {
 pub fn trap_handler(cx: &mut TrapContext) -> &mut TrapContext {
     let scause = scause::read();
     let stval = stval::read();
-    info!("inside trap handler");
+    // debug!("inside trap handler");
     match scause.cause() {
         Trap::Exception(Exception::UserEnvCall) => {
-            info!("using environment call");
+            // debug!("using environment call");
             cx.sepc += 4;
             cx.x[10] = syscall_handler(cx.x[17].into(), [cx.x[10], cx.x[11], cx.x[12]]) as usize;
         }
