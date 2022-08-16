@@ -97,6 +97,10 @@ pub fn print_app_info() {
 pub fn run_next_app() -> ! {
     let mut app_manager = APP_MANAGER.exclusive_access();
     let current_app = app_manager.get_current_app();
+    if current_app == app_manager.num_app {
+        // debug!("inside");
+        panic!("all application has been run successed");
+    }
     unsafe {
         app_manager.load_app(current_app);
     }

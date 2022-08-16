@@ -10,7 +10,7 @@ use std::{
     collections::HashMap,
     ffi::OsString,
     path::{Path, PathBuf},
-    fs::canonicalize,
+    // fs::canonicalize,
 };
 
 const TARGET_ARCH: &str = "riscv64imac-unknown-none-elf";
@@ -112,7 +112,7 @@ impl BuildArgs {
                 cargo.release();
             })
             .target(TARGET_ARCH);
-        let env2 = env.clone();
+        // let env2 = env.clone();
         for (key, value) in env {
             build.env(key, value);
         }

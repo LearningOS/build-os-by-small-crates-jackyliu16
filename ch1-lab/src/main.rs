@@ -39,7 +39,7 @@ impl output::Console for Console {
 
 extern "C" fn primary_rust_main() -> ! {
     init_console(&Console);
-    log::set_max_level(output::log::LevelFilter::Error);
+    log::set_max_level(output::log::LevelFilter::Info);
 
     println!("[PRINT] Hello, world!");
     log::trace!("Hello, world!");

@@ -54,7 +54,7 @@ extern "C" fn primary_rust_main() -> ! {
     clear_bss();
     output::init_console(&Console);
     // output::set_log_level(option_env!("Info"));
-    set_max_level(LevelFilter::Info);
+    set_max_level(LevelFilter::Debug);
     
     error!("[KERNEL] you are now inside the main function");
     trace!("[KERNEL] you are now inside the main function");

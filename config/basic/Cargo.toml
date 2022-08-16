@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 riscv = { git = "https://gitee.com/rcore-os/riscv", features = ["inline-asm"] }
 sbi-rt = { git = "https://github.com/rustsbi/sbi-rt", branch = "dev" }
+output = { path = "../../output" }

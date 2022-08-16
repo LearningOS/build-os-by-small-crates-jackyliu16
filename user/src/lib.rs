@@ -9,7 +9,7 @@ pub use syscall::*;
 #[link_section = ".text.entry"]
 pub extern "C" fn _start() -> ! {
     output::init_console(&Console);
-    // println!("call");    这个地方可以正常执行，每运行一个application就会执行一次
+    // println!("call");    //这个地方可以正常执行，每运行一个application就会执行一次
     exit(main());
     unreachable!()
 }

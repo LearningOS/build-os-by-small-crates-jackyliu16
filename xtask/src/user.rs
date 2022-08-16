@@ -1,7 +1,7 @@
 ﻿use crate::*;
 use command_ext::{Cargo, CommandExt};
 use serde_derive::Deserialize;
-use std::{ffi::OsStr, fs::File, io::Write, path::PathBuf, fs::{canonicalize, read_dir}};
+use std::{ffi::OsStr, fs::File, io::Write, path::PathBuf, fs::{read_dir}};
 
 #[derive(Deserialize)]
 struct Ch2 {
