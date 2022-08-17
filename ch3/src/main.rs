@@ -11,7 +11,7 @@ use config::SCHEDULE;
 // 内联app.asm 进到程序中来
 core::arch::global_asm!(include_str!(env!("APP_ASM")));     // using by SCHEDULE::
 core::arch::global_asm!(include_str!(env!("TRAP")));        // using by SCHEDULE
-core::arch::global_asm!(include_str!(env!("SWITCH")));      // using by SCHEDULE
+// core::arch::global_asm!(include_str!(env!("SWITCH")));      // using by SCHEDULE
 
 #[naked]
 #[no_mangle]

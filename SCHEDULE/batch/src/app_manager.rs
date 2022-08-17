@@ -14,6 +14,7 @@ impl AppManager {
     // prints total app number, and their start and end addresses
     pub fn print_app_info(&self) {
         info!("[kernel] num_app = {}", self.num_app);
+        info!("All application has been linked at this location( in memory )");
         for i in 0..self.num_app {
             info!(
                 "[kernel] app_{} [{:#x}, {:#x})",
@@ -34,7 +35,7 @@ impl AppManager {
         }
         info!("[kernel] Loading app_{}", app_id);
         unsafe {
-            loader::load_app(self.app_start[app_id], self.app_start[app_id+1]);
+            loader::load_app(self.app_start[app_id], self.app_start[app_id+1], APP_BASE_ADDRESS);
         }
     }
 
