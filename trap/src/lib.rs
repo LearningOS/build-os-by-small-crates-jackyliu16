@@ -33,7 +33,9 @@ pub fn init() {
 pub fn trap_handler(cx: &mut TrapContext) -> &mut TrapContext {
     let scause = scause::read();
     let stval = stval::read();
-    // debug!("inside trap handler");
+    debug!("inside trap handler");
+    debug!("stval: {}", stval);
+    // debug!("scause.cause(): {}", scause.cause());
     match scause.cause() {
         Trap::Exception(Exception::UserEnvCall) => {
             // debug!("using environment call");

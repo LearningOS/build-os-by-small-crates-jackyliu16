@@ -178,5 +178,6 @@ fn objcopy(elf: impl AsRef<Path>, binary: bool) -> PathBuf {
         })
         .arg(&bin)
         .invoke();
+    println!("pathBuf: {:?}", bin);
     bin
 }

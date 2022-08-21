@@ -99,9 +99,10 @@ pub fn print_app_info() {
 /// 2. push TrapContext into kernelStack
 pub fn run_next_app() -> ! {
     let mut app_manager = APP_MANAGER.exclusive_access(); 
-    let current = app_manager.num_app;
+    let current = app_manager.get_current_app();
 
-    if current == app_manager.get_current_app() {
+    debug!("current: {}", current);
+    if current == app_manager.num_app {
         panic!("All application has been run successed");
     }
 
