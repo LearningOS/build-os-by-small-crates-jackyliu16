@@ -16,13 +16,24 @@ mod syscall_provide;
 #[allow(unused)]
 #[macro_use]
 use output::log::*;
-use app_manager::{print_app_info, run_next_app};
+use app_manager::{print_app_info, run_next_app, APP_MANAGER};
 use riscv::register::{mtvec::TrapMode, stvec};
+use basic::*;
+use output::{self, log::*};
+
 
 // 基于我的设想，这三种不同的调用是提供给所有对象的，所有对象都可以使用这三种操作。
 // 针对于系统调用访民啊的操作，主要基于
 pub fn init() { 
     info!("using init function from batch");
+    let mut app_manager = APP_MANAGER.exclusive_access();
+    for i in 0..app_manager.num_app {
+        unsafe {
+            app_manager.load_app(i);        
+        }
+    }
+    drop(app_manager);
+
     print_app_info();
     run_next_app();
 }
