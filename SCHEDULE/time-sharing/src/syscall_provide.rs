@@ -9,6 +9,6 @@ pub fn sys_exit(exit_code: i32) -> ! {
 }
 
 pub fn sys_yield(exit_code: i32) -> ! {
-    info!("[kernel] Application yield with code {}", exit_code);
+    info!("[kernel] Applications suspend with code {}", exit_code);
     super::suspend_run_next();
 }

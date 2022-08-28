@@ -34,8 +34,8 @@ pub fn init() {
     run_next_app();
 }
 
-pub fn suspend_run_next() -> !{
-    error!("using suspend_run_next which haven't been realize in batch");
+pub fn suspend_run_next() -> ! {
+    info!("lib.rs: suspend and run next app");
     run_next_app();
 }
 
