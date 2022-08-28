@@ -101,10 +101,12 @@ pub fn build_for(ch: u8, release: bool) {
     writeln!(
         ld,
         "\
-    .global _num_app
+    .global apps
     .section .data
     .align 3
-_num_app:
+apps:
+    .quad {base:#x}
+    .quad {step:#x}
     .quad {}",
         bins.len(),
     ).unwrap();

@@ -28,7 +28,9 @@ impl AppManager {
     }
 
     // load application's binary image file inside the area which start with 0x80400000 ( we put all application here and clear then went we change )
+    #[deprecated]
     unsafe fn load_app(&self, app_id: usize) {
+        panic!("unused");
         if app_id >= self.num_app {
             panic!("All applications completed!");
         }
@@ -66,22 +68,24 @@ lazy_static! {
         UPSafeCell::new({
             extern "C" {
                 // static mut _num_app: u64;
-                fn _num_app();
+                // fn _num_app();
+                static apps: basic::AppMeta;
             }
+
             // get _num_app
-            let num_app_ptr = _num_app as usize as *const usize;
-            // read number of "should run" apps 
-            let num_app = num_app_ptr.read_volatile();
-            // array stores the start address of app
+            // let num_app_ptr = _num_app as usize as *const usize;
+            // // read number of "should run" apps 
+            // let num_app = num_app_ptr.read_volatile();
+            // // array stores the start address of app
             let mut app_start: [usize; MAX_APP_NUM + 1] = [0; MAX_APP_NUM + 1];
-            // read address of app from _num_app, should from [1..?]
-            let app_start_raw: &[usize] =
-            core::slice::from_raw_parts(num_app_ptr.add(1), num_app + 1);
-            // app_start[0..num_app] stores app start addresses
-            app_start[..=num_app].copy_from_slice(app_start_raw);
-            // store infos into AppManager
+            // // read address of app from _num_app, should from [1..?]
+            // let app_start_raw: &[usize] =
+            // core::slice::from_raw_parts(num_app_ptr.add(1), num_app + 1);
+            // // app_start[0..num_app] stores app start addresses
+            // app_start[..=num_app].copy_from_slice(app_start_raw);
+            // // store infos into AppManager
             AppManager {
-                num_app,
+                num_app: apps.len() as usize,
                 current_app: 0,
                 app_start,
             }
@@ -95,15 +99,22 @@ pub fn print_app_info() {
 /// 1. load instruction
 /// 2. push TrapContext into kernelStack
 pub fn run_next_app() -> ! {
+    extern "C" {
+        static apps: basic::AppMeta;
+    }
     let mut app_manager = APP_MANAGER.exclusive_access();
     let current_app = app_manager.get_current_app();
     if current_app == app_manager.num_app {
         // debug!("inside");
         panic!("all application has been run successed");
     }
+    debug!("you are now running application: {}", current_app);
     unsafe {
-        app_manager.load_app(current_app);
+        apps.load(current_app);
     }
+    // unsafe {
+    //     app_manager.load_app(current_app);
+    // }
     // copy app instruction to APP_BASR_ADDRESS
     app_manager.move_to_next_app();                 // add account
     drop(app_manager);
