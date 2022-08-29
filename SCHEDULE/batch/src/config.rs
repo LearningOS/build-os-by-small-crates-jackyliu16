@@ -7,21 +7,31 @@
 use basic::*;
 
 #[repr(align(4096))]
+#[derive(Clone, Copy)]
 pub struct KernelStack {
     data: [u8; KERNEL_STACK_SIZE],
 }
 
 #[repr(align(4096))]
+#[derive(Clone, Copy)]
 pub struct UserStack {
     data: [u8; USER_STACK_SIZE],
 }
 
-pub static KERNEL_STACK: KernelStack = KernelStack {
+pub static KERNEL_STACK: [KernelStack; MAX_APP_NUM] = [KernelStack {
     data: [0; KERNEL_STACK_SIZE],
-};
-pub static USER_STACK: UserStack = UserStack {
+}; MAX_APP_NUM];
+
+pub static USER_STACK: [UserStack; MAX_APP_NUM] = [UserStack {
     data: [0; USER_STACK_SIZE],
-};
+}; MAX_APP_NUM];
+
+// pub static KERNEL_STACK: KernelStack = KernelStack {
+//     data: [0; KERNEL_STACK_SIZE],
+// };
+// pub static USER_STACK: UserStack = UserStack {
+//     data: [0; USER_STACK_SIZE],
+// };
 
 impl KernelStack {
     pub fn get_sp(&self) -> usize {

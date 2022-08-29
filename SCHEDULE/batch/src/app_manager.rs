@@ -22,15 +22,15 @@ impl AppManager {
                 self.app_start[i + 1]
             );
         }
-        debug!("KERNEL_STACK:{:X}", KERNEL_STACK.get_sp());
-        debug!("USER_STACK:{:X}", USER_STACK.get_sp());
+        // debug!("KERNEL_STACK:{:X}", KERNEL_STACK.get_sp());
+        // debug!("USER_STACK:{:X}", USER_STACK.get_sp());
         // BC the different between kernel stack and user stack is 0x1000, which indicate we alloc correct.
     }
 
     // load application's binary image file inside the area which start with 0x80400000 ( we put all application here and clear then went we change )
     #[deprecated]
     unsafe fn load_app(&self, app_id: usize) {
-        panic!("unused");
+        // panic!("unused");
         if app_id >= self.num_app {
             panic!("All applications completed!");
         }
@@ -112,24 +112,18 @@ pub fn run_next_app() -> ! {
     unsafe {
         apps.load(current_app);
     }
-    // unsafe {
-    //     app_manager.load_app(current_app);
-    // }
     // copy app instruction to APP_BASR_ADDRESS
     app_manager.move_to_next_app();                 // add account
     drop(app_manager);
-    // before this we have to drop local variables related to resources manually
-    // and release the resources
-    debug!("APP_BASE_ADDRESS:{:x}", APP_BASE_ADDRESS);
-    debug!("USER_STACK.get_sp:{:X}", USER_STACK.get_sp());
+    
     extern "C" {
         fn __restore(cx_addr: usize);
     }
     unsafe {
         // push TrapContext into kernelStack
-        __restore(KERNEL_STACK.push_context(TrapContext::app_init_context(
+        __restore(KERNEL_STACK[current_app].push_context(TrapContext::app_init_context(
             APP_BASE_ADDRESS,
-            USER_STACK.get_sp(),
+            USER_STACK[current_app].get_sp(),
         )) as *const _ as usize);
     }
     panic!("Unreachable in batch::run_current_app!");
