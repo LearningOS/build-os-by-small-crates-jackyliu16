@@ -1,125 +1,135 @@
-use crate::config::*;
 use lazy_static::*;
-use output::log::*;
 use basic::*;
-use basic::UPSafeCell;
+use crate::config::__switch;
+use output::log::*;
 
-struct AppManager {
+pub struct TaskManager {
     num_app: usize,
-    current_app: usize,
-    app_start: [usize; MAX_APP_NUM + 1],
+    inner: UPSafeCell<TaskManagerInner>,
 }
 
-impl AppManager {
-    // prints total app number, and their start and end addresses
-    pub fn print_app_info(&self) {
-        info!("[kernel] num_app = {}", self.num_app);
-        for i in 0..self.num_app {
-            info!(
-                "[kernel] app_{} [{:#x}, {:#x})",
-                i,
-                self.app_start[i],
-                self.app_start[i + 1]
-            );
-        }
-        debug!("KERNEL_STACK:{:X}", KERNEL_STACK.get_sp());
-        debug!("USER_STACK:{:X}", USER_STACK.get_sp());
-        // BC the different between kernel stack and user stack is 0x1000, which indicate we alloc correct.
-    }
-
-    // load application's binary image file inside the area which start with 0x80400000 ( we put all application here and clear then went we change )
-    unsafe fn load_app(&self, app_id: usize) {
-        if app_id >= self.num_app {
-            panic!("All applications completed!");
-        }
-        info!("[kernel] Loading app_{}", app_id);
-        // clear icache
-        // we need to clear instruction-cache 
-        // to allow running next app properly.  
-        core::arch::asm!("fence.i");            // 调用了一个汇编的东西，实现了清除缓存
-        // clear app area, set data from APP_BASE_ADDRESS.. to 0
-        core::slice::from_raw_parts_mut(APP_BASE_ADDRESS as *mut u8, APP_SIZE_LIMIT).fill(0);   // BC batch we using a same location to load application so this address will be same.
-        // copy [app_start..app_end] to [APP_BASE_ADDRESS..] so as to run it
-        let app_src = core::slice::from_raw_parts(
-            self.app_start[app_id] as *const u8,
-            self.app_start[app_id + 1] - self.app_start[app_id],
-        );
-        let app_dst = core::slice::from_raw_parts_mut(APP_BASE_ADDRESS as *mut u8, app_src.len());
-        debug!("finish APP_MANAGER.load_app");
-        app_dst.copy_from_slice(app_src);
-    }
-
-    pub fn get_current_app(&self) -> usize {
-        self.current_app
-    }
-
-    pub fn move_to_next_app(&mut self) {
-        self.current_app += 1;
-    }
+struct TaskManagerInner {
+    tasks: [TaskControlBlock; MAX_APP_NUM],
+    current_task: usize,
 }
-// lazy_statc!{}: dynamicly generate global static variable
-// lazy means only the first met initiate the variable.
-// init static APP_MANAGER
+
+#[derive(Copy, Clone)]
+pub struct TaskControlBlock {
+    pub task_status: TaskStatus,    // provide the status
+    pub task_cx: TaskContext,       // saving the entry of application
+}
+
+#[derive(Copy, Clone, PartialEq)]
+pub enum TaskStatus {
+    UnInit,
+    Ready,
+    Running,
+    Exited,
+}
+use crate::config::init_app_cx;
 lazy_static! {
-    // UPSafeCell: prevent multi borrows
-    static ref APP_MANAGER: UPSafeCell<AppManager> = unsafe {
-        UPSafeCell::new({
-            extern "C" {
-                // static mut _num_app: u64;
-                fn _num_app();
+    pub static ref TASK_MANAGER: TaskManager = {
+        extern "C" {
+            static apps: basic::AppMeta;
+        }
+        let num_app = unsafe { apps.len() };
+        let mut tasks = [TaskControlBlock {
+            task_cx: TaskContext::zero_init(),
+        task_status: TaskStatus::UnInit,
+        }; MAX_APP_NUM];
+        for i in 0..num_app {
+            unsafe { apps.load(i); }
+        }
+        for (i, t) in tasks.iter_mut().enumerate().take(num_app) {
+            t.task_cx = TaskContext::goto_restore(init_app_cx(i));
+            t.task_status = TaskStatus::Ready;
+        }
+        TaskManager {
+            num_app: unsafe { apps.len() },
+            inner: unsafe {
+                UPSafeCell::new(TaskManagerInner {
+                    tasks, 
+                    current_task: 0 
+                })
             }
-            // get _num_app
-            let num_app_ptr = _num_app as usize as *const usize;
-            // read number of "should run" apps 
-            let num_app = num_app_ptr.read_volatile();
-            // array stores the start address of app
-            let mut app_start: [usize; MAX_APP_NUM + 1] = [0; MAX_APP_NUM + 1];
-            // read address of app from _num_app, should from [1..?]
-            let app_start_raw: &[usize] =
-            core::slice::from_raw_parts(num_app_ptr.add(1), num_app + 1);
-            // app_start[0..num_app] stores app start addresses
-            app_start[..=num_app].copy_from_slice(app_start_raw);
-            // store infos into AppManager
-            AppManager {
-                num_app,
-                current_app: 0,
-                app_start,
-            }
-        })
+        }
     };
 }
-pub fn print_app_info() {
-    APP_MANAGER.exclusive_access().print_app_info();
-}
 
-/// 1. load instruction
-/// 2. push TrapContext into kernelStack
-pub fn run_next_app() -> ! {
-    let mut app_manager = APP_MANAGER.exclusive_access();
-    let current_app = app_manager.get_current_app();
-    if current_app == app_manager.num_app {
-        // debug!("inside");
-        panic!("all application has been run successed");
+impl TaskManager {
+
+    /// 设想中我们通过提供一个新的东西，也就是内置一个基于TaskManager的分配器来实现我们的各种task的顺序获取
+    /// pid: alloc but haven't dealloc
+    /// 然后我们将对于第一个task的初始化部分放置在其中，就可以相当程度上解决了我们目前所面临的问题
+    pub fn run_first_task(&self) -> ! {
+        let mut inner = self.inner.exclusive_access();
+        let task0 = &mut inner.tasks[0];
+        
+        task0.task_status = TaskStatus::Running;
+        let mut _unused = TaskContext::zero_init();
+        let next_task_cx_ptr = &task0.task_cx as *const TaskContext;
+        drop(inner);
+
+        unsafe {
+            __switch(&mut _unused as *mut TaskContext, next_task_cx_ptr);
+        }
+        panic!("unreachable in run_first_task");
     }
-    unsafe {
-        app_manager.load_app(current_app);
+
+    /// 现在暂且使用原先这套操作，后面想看下能不能引入一些别的方案来实现模块化更替
+    /// 就是感觉这两个部分内联太严重了，应该没有办法可以拆分出来
+    /// Find next task to run and return task id.
+    ///
+    /// In this case, we only return the first `Ready` task in task list.
+    fn find_next_task(&self) -> Option<usize> {
+        let inner = self.inner.exclusive_access();
+        let current = inner.current_task;
+        (current + 1..current + self.num_app + 1)
+            .map(|id| id % self.num_app)
+            .find(|id| inner.tasks[*id].task_status == TaskStatus::Ready)
     }
-    // copy app instruction to APP_BASR_ADDRESS
-    app_manager.move_to_next_app();                 // add account
-    drop(app_manager);
-    // before this we have to drop local variables related to resources manually
-    // and release the resources
-    debug!("APP_BASE_ADDRESS:{:x}", APP_BASE_ADDRESS);
-    debug!("USER_STACK.get_sp:{:X}", USER_STACK.get_sp());
-    extern "C" {
-        fn __restore(cx_addr: usize);
+
+    /// Switch current `Running` task to the task we have found,
+    /// or there is no `Ready` task and we can exit with all applications completed
+    pub fn run_next_task(&self) -> !{
+        if let Some(next) = self.find_next_task() {
+            let mut inner = self.inner.exclusive_access();
+            let current = inner.current_task;
+            // self.record_current_first_run_time(next);
+            inner.tasks[next].task_status = TaskStatus::Running;
+            inner.current_task = next;
+
+            let current_task_cx_ptr = &mut inner.tasks[current].task_cx as *mut TaskContext;
+            let next_task_cx_ptr = &inner.tasks[next].task_cx as *const TaskContext;
+                drop(inner); 
+            // before this, we should drop local variables that must be dropped manually
+            unsafe {
+                __switch(current_task_cx_ptr, next_task_cx_ptr);
+            }
+            panic!("unreachable in run_next_task");
+        } else {
+            panic!("All applications completed!");
+        }
     }
-    unsafe {
-        // push TrapContext into kernelStack
-        __restore(KERNEL_STACK.push_context(TrapContext::app_init_context(
-            APP_BASE_ADDRESS,
-            USER_STACK.get_sp(),
-        )) as *const _ as usize);
+
+    pub fn suspend_current_task(&self) {
+        let mut inner = self.inner.exclusive_access();
+        let current = inner.current_task;
+        inner.tasks[current].task_status = TaskStatus::Ready;        
     }
-    panic!("Unreachable in batch::run_current_app!");
+
+    pub fn exited_current_task(&self) {
+        let mut inner = self.inner.exclusive_access();
+        let current = inner.current_task;
+        inner.tasks[current].task_status = TaskStatus::Exited;        
+    }
+
+    pub fn print_app_info(&self) {
+        let inner = self.inner.exclusive_access();
+        for i in inner.tasks {
+            debug!("=====");
+            debug!("ra: {:?}, sp: {:?}, s: {:?}", i.task_cx.ra, i.task_cx.sp, i.task_cx.s);
+        }
+    }
+
 }

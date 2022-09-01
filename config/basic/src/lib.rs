@@ -102,3 +102,39 @@ fn panic(info: &PanicInfo) -> ! {
     sbi_rt::system_reset(RESET_TYPE_SHUTDOWN, RESET_REASON_NO_REASON);
     unreachable!()
 }
+
+pub fn get_base_i(app_id: usize) -> usize {
+    APP_BASE_ADDRESS + app_id * APP_SIZE_LIMIT
+}
+
+
+
+#[derive(Copy, Clone)]
+#[repr(C)]
+pub struct TaskContext {
+    pub ra: usize,
+    pub sp: usize,
+    pub s: [usize; 12], // save 12 register which saving by caller
+}
+
+impl TaskContext {
+    pub fn zero_init() -> Self {
+        Self {
+            ra: 0,
+            sp: 0,
+            s: [0; 12],
+        }
+    }
+
+    pub fn goto_restore(kstack_ptr: usize) -> Self {
+        extern "C" {
+            fn __restore();
+        }
+        Self {
+            ra: __restore as usize,
+            sp: kstack_ptr,
+            s: [0; 12]
+        }
+    }
+}
+

@@ -109,9 +109,9 @@ pub fn run_next_app() -> ! {
         panic!("all application has been run successed");
     }
     debug!("you are now running application: {}", current_app);
-    unsafe {
-        apps.load(current_app);
-    }
+    // unsafe {
+    //     apps.load(current_app);
+    // }
     // copy app instruction to APP_BASR_ADDRESS
     app_manager.move_to_next_app();                 // add account
     drop(app_manager);
@@ -122,7 +122,8 @@ pub fn run_next_app() -> ! {
     unsafe {
         // push TrapContext into kernelStack
         __restore(KERNEL_STACK[current_app].push_context(TrapContext::app_init_context(
-            APP_BASE_ADDRESS,
+            get_base_i(current_app),
+            // APP_BASE_ADDRESS,
             USER_STACK[current_app].get_sp(),
         )) as *const _ as usize);
     }

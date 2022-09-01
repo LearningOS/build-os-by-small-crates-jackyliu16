@@ -112,7 +112,7 @@ impl BuildArgs {
                 cargo.release();
             })
             .target(TARGET_ARCH);
-        // let env2 = env.clone();
+        let env2 = env.clone();
         for (key, value) in env {
             build.env(key, value);
         }
@@ -126,6 +126,7 @@ impl BuildArgs {
         // let app_asm = env2.get("APP_ASM").unwrap();
         // println!("{:?}", app_asm);
             
+        println!("{:?}", env2);
         objcopy(elf, true)
     }
 }

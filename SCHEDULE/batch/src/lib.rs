@@ -23,12 +23,15 @@ use riscv::register::{mtvec::TrapMode, stvec};
 // 针对于系统调用访民啊的操作，主要基于
 pub fn init() { 
     info!("using init function from batch");
-    // 初始化进程上下文
     extern "C" {
-        fn __alltraps();
+        static apps: basic::AppMeta;
     }
     unsafe {
-        stvec::write(__alltraps as usize, TrapMode::Direct);
+        debug!("base: {:#X}, step: {:#X}, count: {:#X}", apps.base, apps.step, apps.count);
+        debug!("apps.len{}", apps.len());
+        for i in 0..apps.len() {
+            apps.load(i);
+        }
     }
     print_app_info();
     run_next_app();
