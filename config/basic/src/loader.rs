@@ -21,8 +21,8 @@ impl AppMeta {
         use crate::APP_BASE_ADDRESS;
         let pos = slice[i];
         let size = slice[i + 1] - pos;
-        let base = APP_BASE_ADDRESS;
-        // let base = self.base as usize + i * self.step as usize;
+        // let base = APP_BASE_ADDRESS;
+        let base = self.base as usize + i * self.step as usize;
         debug!("build application : {} in {:#X}", i, base);
 
         core::ptr::copy_nonoverlapping::<u8>(pos as _, base as _, size);

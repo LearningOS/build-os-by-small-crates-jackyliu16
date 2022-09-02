@@ -41,15 +41,15 @@ pub fn trap_handler(cx: &mut TrapContext) -> &mut TrapContext {
             cx.x[10] = syscall_handler(cx.x[17].into(), [cx.x[10], cx.x[11], cx.x[12]]) as usize;
         }
         Trap::Exception(Exception::StoreFault) | Trap::Exception(Exception::StorePageFault) => {
-            error!("[kernel] PageFault in application, core dumped.");
+            // error!("[kernel] PageFault in application, core dumped.");
             exit_run_next();
         }
         Trap::Exception(Exception::IllegalInstruction) => {
-            error!("[kernel] IllegalInstruction in application, core dumped.");
+            // error!("[kernel] IllegalInstruction in application, core dumped.");
             exit_run_next();
         }
         _ => {
-            error!("unsupported trap");
+            // error!("unsupported trap");
             panic!(
                 "Unsupported trap {:?}, stval = {:#x}!",
                 scause.cause(),
