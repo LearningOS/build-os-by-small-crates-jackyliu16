@@ -1,0 +1,629 @@
+ra             0x80200a8c	[34m0x80200a8c[m <[33mtrap::trap_handler[m+278>
+sp             0x8029cc10	[34m0x8029cc10[m <[33mch3::_start::STACK[m+3088>
+gp             0x0	[34m0x0[m
+tp             0x0	[34m0x0[m
+t0             0x60	96
+t1             0x80208f72	2149617522
+t2             0x8029ccb0	2150223024
+fp             0x0	[34m0x0[m
+s1             0x0	0
+a0             0x8029cc40	2150222912
+a1             0x8029d020	2150223904
+a2             0x8029d018	2150223896
+a3             0x8029ccb0	2150223024
+a4             0x8029cc08	2150222856
+a5             0x0	0
+a6             0x60	96
+a7             0x8029cba8	2150222760
+s2             0x0	0
+s3             0x0	0
+s4             0x0	0
+s5             0x0	0
+s6             0x0	0
+s7             0x0	0
+s8             0x0	0
+s9             0x0	0
+s10            0x0	0
+s11            0x0	0
+t3             0x8023e09a	2149834906
+t4             0x0	0
+t5             0x0	0
+t6             0x0	0
+pc             0x80201a90	[34m0x80201a90[m <[33mSCHEDULE::app_manager::TaskManager::run_first_task[m+96>
+[34m0x0000000080200490[m in [33m__switch[m ()
+=> [34m0x80200490[m <[33m__switch[m>:	sd	sp,8(a0)
+   [34m0x80200494[m <[33m__switch[m+4>:	sd	ra,0(a0)
+   [34m0x80200498[m <[33m__switch[m+8>:	sd	s0,16(a0)
+   [34m0x8020049a[m <[33m__switch[m+10>:	sd	s1,24(a0)
+   [34m0x8020049c[m <[33m__switch[m+12>:	sd	s2,32(a0)
+   [34m0x802004a0[m <[33m__switch[m+16>:	sd	s3,40(a0)
+   [34m0x802004a4[m <[33m__switch[m+20>:	sd	s4,48(a0)
+   [34m0x802004a8[m <[33m__switch[m+24>:	sd	s5,56(a0)
+   [34m0x802004ac[m <[33m__switch[m+28>:	sd	s6,64(a0)
+   [34m0x802004b0[m <[33m__switch[m+32>:	sd	s7,72(a0)
+[34m0x0000000080200494[m in [33m__switch[m ()
+[34m0x0000000080200498[m in [33m__switch[m ()
+[34m0x000000008020049a[m in [33m__switch[m ()
+[34m0x000000008020049c[m in [33m__switch[m ()
+[34m0x00000000802004a0[m in [33m__switch[m ()
+[34m0x00000000802004a4[m in [33m__switch[m ()
+[34m0x00000000802004a8[m in [33m__switch[m ()
+[34m0x00000000802004ac[m in [33m__switch[m ()
+[34m0x00000000802004b0[m in [33m__switch[m ()
+[34m0x00000000802004b4[m in [33m__switch[m ()
+=> [34m0x802004b4[m <[33m__switch[m+36>:	sd	s8,80(a0)
+   [34m0x802004b8[m <[33m__switch[m+40>:	sd	s9,88(a0)
+   [34m0x802004bc[m <[33m__switch[m+44>:	sd	s10,96(a0)
+   [34m0x802004c0[m <[33m__switch[m+48>:	sd	s11,104(a0)
+   [34m0x802004c4[m <[33m__switch[m+52>:	ld	ra,0(a1)
+   [34m0x802004c8[m <[33m__switch[m+56>:	ld	s0,16(a1)
+   [34m0x802004ca[m <[33m__switch[m+58>:	ld	s1,24(a1)
+   [34m0x802004cc[m <[33m__switch[m+60>:	ld	s2,32(a1)
+   [34m0x802004d0[m <[33m__switch[m+64>:	ld	s3,40(a1)
+   [34m0x802004d4[m <[33m__switch[m+68>:	ld	s4,48(a1)
+[34m0x00000000802004b8[m in [33m__switch[m ()
+[34m0x00000000802004bc[m in [33m__switch[m ()
+[34m0x00000000802004c0[m in [33m__switch[m ()
+[34m0x00000000802004c4[m in [33m__switch[m ()
+[34m0x00000000802004c8[m in [33m__switch[m ()
+[34m0x00000000802004ca[m in [33m__switch[m ()
+[34m0x00000000802004cc[m in [33m__switch[m ()
+[34m0x00000000802004d0[m in [33m__switch[m ()
+[34m0x00000000802004d4[m in [33m__switch[m ()
+[34m0x00000000802004d8[m in [33m__switch[m ()
+=> [34m0x802004d8[m <[33m__switch[m+72>:	ld	s5,56(a1)
+   [34m0x802004dc[m <[33m__switch[m+76>:	ld	s6,64(a1)
+   [34m0x802004e0[m <[33m__switch[m+80>:	ld	s7,72(a1)
+   [34m0x802004e4[m <[33m__switch[m+84>:	ld	s8,80(a1)
+   [34m0x802004e8[m <[33m__switch[m+88>:	ld	s9,88(a1)
+   [34m0x802004ec[m <[33m__switch[m+92>:	ld	s10,96(a1)
+   [34m0x802004f0[m <[33m__switch[m+96>:	ld	s11,104(a1)
+   [34m0x802004f4[m <[33m__switch[m+100>:	ld	sp,8(a1)
+   [34m0x802004f8[m <[33m__switch[m+104>:	ret
+   [34m0x802004fa[m <[33mch3::clear_bss[m>:	addi	sp,sp,-16
+[34m0x00000000802004dc[m in [33m__switch[m ()
+[34m0x00000000802004e0[m in [33m__switch[m ()
+[34m0x00000000802004e4[m in [33m__switch[m ()
+[34m0x00000000802004e8[m in [33m__switch[m ()
+[34m0x00000000802004ec[m in [33m__switch[m ()
+[34m0x00000000802004f0[m in [33m__switch[m ()
+[34m0x00000000802004f4[m in [33m__switch[m ()
+[34m0x00000000802004f8[m in [33m__switch[m ()
+[34m0x0000000080200438[m in [33m__restore[m ()
+=> [34m0x80200438[m <[33m__restore[m>:	mv	sp,a0
+   [34m0x8020043a[m <[33m__restore[m+2>:	ld	t0,256(sp)
+   [34m0x8020043c[m <[33m__restore[m+4>:	ld	t1,264(sp)
+   [34m0x8020043e[m <[33m__restore[m+6>:	ld	t2,16(sp)
+   [34m0x80200440[m <[33m__restore[m+8>:	csrw	sstatus,t0
+   [34m0x80200444[m <[33m__restore[m+12>:	csrw	sepc,t1
+   [34m0x80200448[m <[33m__restore[m+16>:	csrw	sscratch,t2
+   [34m0x8020044c[m <[33m__restore[m+20>:	ld	ra,8(sp)
+   [34m0x8020044e[m <[33m__restore[m+22>:	ld	gp,24(sp)
+   [34m0x80200450[m <[33m__restore[m+24>:	ld	t0,40(sp)
+[34m0x000000008020043a[m in [33m__restore[m ()
+[34m0x000000008020043c[m in [33m__restore[m ()
+[34m0x000000008020043e[m in [33m__restore[m ()
+[34m0x0000000080200440[m in [33m__restore[m ()
+[34m0x0000000080200444[m in [33m__restore[m ()
+[34m0x0000000080200448[m in [33m__restore[m ()
+[34m0x000000008020044c[m in [33m__restore[m ()
+[34m0x000000008020044e[m in [33m__restore[m ()
+[34m0x0000000080200450[m in [33m__restore[m ()
+=> [34m0x80200450[m <[33m__restore[m+24>:	ld	t0,40(sp)
+   [34m0x80200452[m <[33m__restore[m+26>:	ld	t1,48(sp)
+   [34m0x80200454[m <[33m__restore[m+28>:	ld	t2,56(sp)
+   [34m0x80200456[m <[33m__restore[m+30>:	ld	s0,64(sp)
+   [34m0x80200458[m <[33m__restore[m+32>:	ld	s1,72(sp)
+   [34m0x8020045a[m <[33m__restore[m+34>:	ld	a0,80(sp)
+   [34m0x8020045c[m <[33m__restore[m+36>:	ld	a1,88(sp)
+   [34m0x8020045e[m <[33m__restore[m+38>:	ld	a2,96(sp)
+   [34m0x80200460[m <[33m__restore[m+40>:	ld	a3,104(sp)
+   [34m0x80200462[m <[33m__restore[m+42>:	ld	a4,112(sp)
+[34m0x0000000080200452[m in [33m__restore[m ()
+[34m0x0000000080200454[m in [33m__restore[m ()
+[34m0x0000000080200456[m in [33m__restore[m ()
+[34m0x0000000080200458[m in [33m__restore[m ()
+[34m0x000000008020045a[m in [33m__restore[m ()
+[34m0x000000008020045c[m in [33m__restore[m ()
+[34m0x000000008020045e[m in [33m__restore[m ()
+[34m0x0000000080200460[m in [33m__restore[m ()
+[34m0x0000000080200462[m in [33m__restore[m ()
+[34m0x0000000080200464[m in [33m__restore[m ()
+[34m0x0000000080200466[m in [33m__restore[m ()
+=> [34m0x80200466[m <[33m__restore[m+46>:	ld	a6,128(sp)
+   [34m0x80200468[m <[33m__restore[m+48>:	ld	a7,136(sp)
+   [34m0x8020046a[m <[33m__restore[m+50>:	ld	s2,144(sp)
+   [34m0x8020046c[m <[33m__restore[m+52>:	ld	s3,152(sp)
+   [34m0x8020046e[m <[33m__restore[m+54>:	ld	s4,160(sp)
+   [34m0x80200470[m <[33m__restore[m+56>:	ld	s5,168(sp)
+   [34m0x80200472[m <[33m__restore[m+58>:	ld	s6,176(sp)
+   [34m0x80200474[m <[33m__restore[m+60>:	ld	s7,184(sp)
+   [34m0x80200476[m <[33m__restore[m+62>:	ld	s8,192(sp)
+   [34m0x80200478[m <[33m__restore[m+64>:	ld	s9,200(sp)
+[34m0x0000000080200468[m in [33m__restore[m ()
+[34m0x000000008020046a[m in [33m__restore[m ()
+[34m0x000000008020046c[m in [33m__restore[m ()
+[34m0x000000008020046e[m in [33m__restore[m ()
+[34m0x0000000080200470[m in [33m__restore[m ()
+[34m0x0000000080200472[m in [33m__restore[m ()
+[34m0x0000000080200474[m in [33m__restore[m ()
+[34m0x0000000080200476[m in [33m__restore[m ()
+[34m0x0000000080200478[m in [33m__restore[m ()
+[34m0x000000008020047a[m in [33m__restore[m ()
+=> [34m0x8020047a[m <[33m__restore[m+66>:	ld	s10,208(sp)
+   [34m0x8020047c[m <[33m__restore[m+68>:	ld	s11,216(sp)
+   [34m0x8020047e[m <[33m__restore[m+70>:	ld	t3,224(sp)
+   [34m0x80200480[m <[33m__restore[m+72>:	ld	t4,232(sp)
+   [34m0x80200482[m <[33m__restore[m+74>:	ld	t5,240(sp)
+   [34m0x80200484[m <[33m__restore[m+76>:	ld	t6,248(sp)
+   [34m0x80200486[m <[33m__restore[m+78>:	addi	sp,sp,272
+   [34m0x80200488[m <[33m__restore[m+80>:	csrrw	sp,sscratch,sp
+   [34m0x8020048c[m <[33m__restore[m+84>:	sret
+   [34m0x80200490[m <[33m__switch[m>:	sd	sp,8(a0)
+[34m0x000000008020047c[m in [33m__restore[m ()
+[34m0x000000008020047e[m in [33m__restore[m ()
+[34m0x0000000080200480[m in [33m__restore[m ()
+[34m0x0000000080200482[m in [33m__restore[m ()
+[34m0x0000000080200484[m in [33m__restore[m ()
+[34m0x0000000080200486[m in [33m__restore[m ()
+[34m0x0000000080200488[m in [33m__restore[m ()
+ra             0x8029cc10	[34m0x8029cc10[m <[33mch3::_start::STACK[m+3088>
+sp             0x8029cd50	[34m0x8029cd50[m <[33mch3::_start::STACK[m+3408>
+gp             0x0	[34m0x0[m
+tp             0x0	[34m0x0[m
+t0             0x0	0
+t1             0x0	0
+t2             0x0	0
+fp             0x0	[34m0x0[m
+s1             0x0	0
+a0             0x0	0
+a1             0x0	0
+a2             0x0	0
+a3             0x0	0
+a4             0x0	0
+a5             0x4008020ab80	4400196135808
+a6             0x8029d000	2150223872
+a7             0x8	8
+s2             0x8029d008	2150223880
+s3             0x80201eb6	2149588662
+s4             0x8029d010	2150223888
+s5             0x8029d020	2150223904
+s6             0x8029d020	2150223904
+s7             0x802014e8	2149586152
+s8             0x8020a118	2149622040
+s9             0x8029d010	2150223888
+s10            0x1	1
+s11            0x1	1
+t3             0x3	3
+t4             0x10000008020a11b	72057596187549979
+t5             0x4	4
+t6             0x8020ab10	2149624592
+pc             0x80200488	[34m0x80200488[m <[33m__restore[m+80>
+[34m0x000000008020048c[m in [33m__restore[m ()
+ra             0x8029cc10	[34m0x8029cc10[m <[33mch3::_start::STACK[m+3088>
+sp             0x0	[34m0x0[m
+gp             0x0	[34m0x0[m
+tp             0x0	[34m0x0[m
+t0             0x0	0
+t1             0x0	0
+t2             0x0	0
+fp             0x0	[34m0x0[m
+s1             0x0	0
+a0             0x0	0
+a1             0x0	0
+a2             0x0	0
+a3             0x0	0
+a4             0x0	0
+a5             0x4008020ab80	4400196135808
+a6             0x8029d000	2150223872
+a7             0x8	8
+s2             0x8029d008	2150223880
+s3             0x80201eb6	2149588662
+s4             0x8029d010	2150223888
+s5             0x8029d020	2150223904
+s6             0x8029d020	2150223904
+s7             0x802014e8	2149586152
+s8             0x8020a118	2149622040
+s9             0x8029d010	2150223888
+s10            0x1	1
+s11            0x1	1
+t3             0x3	3
+t4             0x10000008020a11b	72057596187549979
+t5             0x4	4
+t6             0x8020ab10	2149624592
+pc             0x8020048c	[34m0x8020048c[m <[33m__restore[m+84>
+[34m0x0000000000000000[m in [33m??[m ()
+[34m0x00000000802003dc[m in [33m__alltraps[m ()
+[34m0x00000000802003e0[m in [33m__alltraps[m ()
+[34m0x00000000802003e2[m in [33m__alltraps[m ()
+[34m0x00000000802003e4[m in [33m__alltraps[m ()
+[34m0x00000000802003e6[m in [33m__alltraps[m ()
+=> [34m0x802003e6[m <[33m__alltraps[m+10>:	sd	t0,40(sp)
+   [34m0x802003e8[m <[33m__alltraps[m+12>:	sd	t1,48(sp)
+   [34m0x802003ea[m <[33m__alltraps[m+14>:	sd	t2,56(sp)
+   [34m0x802003ec[m <[33m__alltraps[m+16>:	sd	s0,64(sp)
+   [34m0x802003ee[m <[33m__alltraps[m+18>:	sd	s1,72(sp)
+   [34m0x802003f0[m <[33m__alltraps[m+20>:	sd	a0,80(sp)
+   [34m0x802003f2[m <[33m__alltraps[m+22>:	sd	a1,88(sp)
+   [34m0x802003f4[m <[33m__alltraps[m+24>:	sd	a2,96(sp)
+   [34m0x802003f6[m <[33m__alltraps[m+26>:	sd	a3,104(sp)
+   [34m0x802003f8[m <[33m__alltraps[m+28>:	sd	a4,112(sp)
+[34m0x00000000802003e8[m in [33m__alltraps[m ()
+[34m0x00000000802003ea[m in [33m__alltraps[m ()
+[34m0x00000000802003ec[m in [33m__alltraps[m ()
+[34m0x00000000802003ee[m in [33m__alltraps[m ()
+[34m0x00000000802003f0[m in [33m__alltraps[m ()
+[34m0x00000000802003f2[m in [33m__alltraps[m ()
+[34m0x00000000802003f4[m in [33m__alltraps[m ()
+[34m0x00000000802003f6[m in [33m__alltraps[m ()
+[34m0x00000000802003f8[m in [33m__alltraps[m ()
+[34m0x00000000802003fa[m in [33m__alltraps[m ()
+=> [34m0x802003fa[m <[33m__alltraps[m+30>:	sd	a5,120(sp)
+   [34m0x802003fc[m <[33m__alltraps[m+32>:	sd	a6,128(sp)
+   [34m0x802003fe[m <[33m__alltraps[m+34>:	sd	a7,136(sp)
+   [34m0x80200400[m <[33m__alltraps[m+36>:	sd	s2,144(sp)
+   [34m0x80200402[m <[33m__alltraps[m+38>:	sd	s3,152(sp)
+   [34m0x80200404[m <[33m__alltraps[m+40>:	sd	s4,160(sp)
+   [34m0x80200406[m <[33m__alltraps[m+42>:	sd	s5,168(sp)
+   [34m0x80200408[m <[33m__alltraps[m+44>:	sd	s6,176(sp)
+   [34m0x8020040a[m <[33m__alltraps[m+46>:	sd	s7,184(sp)
+   [34m0x8020040c[m <[33m__alltraps[m+48>:	sd	s8,192(sp)
+[34m0x00000000802003fc[m in [33m__alltraps[m ()
+[34m0x00000000802003fe[m in [33m__alltraps[m ()
+[34m0x0000000080200400[m in [33m__alltraps[m ()
+[34m0x0000000080200402[m in [33m__alltraps[m ()
+[34m0x0000000080200404[m in [33m__alltraps[m ()
+[34m0x0000000080200406[m in [33m__alltraps[m ()
+[34m0x0000000080200408[m in [33m__alltraps[m ()
+[34m0x000000008020040a[m in [33m__alltraps[m ()
+[34m0x000000008020040c[m in [33m__alltraps[m ()
+[34m0x000000008020040e[m in [33m__alltraps[m ()
+=> [34m0x8020040e[m <[33m__alltraps[m+50>:	sd	s9,200(sp)
+   [34m0x80200410[m <[33m__alltraps[m+52>:	sd	s10,208(sp)
+   [34m0x80200412[m <[33m__alltraps[m+54>:	sd	s11,216(sp)
+   [34m0x80200414[m <[33m__alltraps[m+56>:	sd	t3,224(sp)
+   [34m0x80200416[m <[33m__alltraps[m+58>:	sd	t4,232(sp)
+   [34m0x80200418[m <[33m__alltraps[m+60>:	sd	t5,240(sp)
+   [34m0x8020041a[m <[33m__alltraps[m+62>:	sd	t6,248(sp)
+   [34m0x8020041c[m <[33m__alltraps[m+64>:	csrr	t0,sstatus
+   [34m0x80200420[m <[33m__alltraps[m+68>:	csrr	t1,sepc
+   [34m0x80200424[m <[33m__alltraps[m+72>:	sd	t0,256(sp)
+=> [34m0x8020040e[m <[33m__alltraps[m+50>:	sd	s9,200(sp)
+   [34m0x80200410[m <[33m__alltraps[m+52>:	sd	s10,208(sp)
+   [34m0x80200412[m <[33m__alltraps[m+54>:	sd	s11,216(sp)
+   [34m0x80200414[m <[33m__alltraps[m+56>:	sd	t3,224(sp)
+   [34m0x80200416[m <[33m__alltraps[m+58>:	sd	t4,232(sp)
+   [34m0x80200418[m <[33m__alltraps[m+60>:	sd	t5,240(sp)
+   [34m0x8020041a[m <[33m__alltraps[m+62>:	sd	t6,248(sp)
+   [34m0x8020041c[m <[33m__alltraps[m+64>:	csrr	t0,sstatus
+   [34m0x80200420[m <[33m__alltraps[m+68>:	csrr	t1,sepc
+   [34m0x80200424[m <[33m__alltraps[m+72>:	sd	t0,256(sp)
+   [34m0x80200426[m <[33m__alltraps[m+74>:	sd	t1,264(sp)
+   [34m0x80200428[m <[33m__alltraps[m+76>:	csrr	t2,sscratch
+   [34m0x8020042c[m <[33m__alltraps[m+80>:	sd	t2,16(sp)
+   [34m0x8020042e[m <[33m__alltraps[m+82>:	mv	a0,sp
+   [34m0x80200430[m <[33m__alltraps[m+84>:	auipc	ra,0x0
+   [34m0x80200434[m <[33m__alltraps[m+88>:	jalr	1350(ra)
+   [34m0x80200438[m <[33m__restore[m>:	mv	sp,a0
+   [34m0x8020043a[m <[33m__restore[m+2>:	ld	t0,256(sp)
+   [34m0x8020043c[m <[33m__restore[m+4>:	ld	t1,264(sp)
+   [34m0x8020043e[m <[33m__restore[m+6>:	ld	t2,16(sp)
+   [34m0x80200440[m <[33m__restore[m+8>:	csrw	sstatus,t0
+   [34m0x80200444[m <[33m__restore[m+12>:	csrw	sepc,t1
+   [34m0x80200448[m <[33m__restore[m+16>:	csrw	sscratch,t2
+   [34m0x8020044c[m <[33m__restore[m+20>:	ld	ra,8(sp)
+   [34m0x8020044e[m <[33m__restore[m+22>:	ld	gp,24(sp)
+   [34m0x80200450[m <[33m__restore[m+24>:	ld	t0,40(sp)
+   [34m0x80200452[m <[33m__restore[m+26>:	ld	t1,48(sp)
+   [34m0x80200454[m <[33m__restore[m+28>:	ld	t2,56(sp)
+   [34m0x80200456[m <[33m__restore[m+30>:	ld	s0,64(sp)
+   [34m0x80200458[m <[33m__restore[m+32>:	ld	s1,72(sp)
+   [34m0x8020045a[m <[33m__restore[m+34>:	ld	a0,80(sp)
+   [34m0x8020045c[m <[33m__restore[m+36>:	ld	a1,88(sp)
+   [34m0x8020045e[m <[33m__restore[m+38>:	ld	a2,96(sp)
+   [34m0x80200460[m <[33m__restore[m+40>:	ld	a3,104(sp)
+   [34m0x80200462[m <[33m__restore[m+42>:	ld	a4,112(sp)
+   [34m0x80200464[m <[33m__restore[m+44>:	ld	a5,120(sp)
+   [34m0x80200466[m <[33m__restore[m+46>:	ld	a6,128(sp)
+   [34m0x80200468[m <[33m__restore[m+48>:	ld	a7,136(sp)
+   [34m0x8020046a[m <[33m__restore[m+50>:	ld	s2,144(sp)
+   [34m0x8020046c[m <[33m__restore[m+52>:	ld	s3,152(sp)
+[34m0x0000000080200410[m in [33m__alltraps[m ()
+[34m0x0000000080200412[m in [33m__alltraps[m ()
+[34m0x0000000080200414[m in [33m__alltraps[m ()
+[34m0x0000000080200416[m in [33m__alltraps[m ()
+[34m0x0000000080200418[m in [33m__alltraps[m ()
+[34m0x000000008020041a[m in [33m__alltraps[m ()
+[34m0x000000008020041c[m in [33m__alltraps[m ()
+[34m0x0000000080200420[m in [33m__alltraps[m ()
+[34m0x0000000080200424[m in [33m__alltraps[m ()
+[34m0x0000000080200426[m in [33m__alltraps[m ()
+=> [34m0x80200426[m <[33m__alltraps[m+74>:	sd	t1,264(sp)
+   [34m0x80200428[m <[33m__alltraps[m+76>:	csrr	t2,sscratch
+   [34m0x8020042c[m <[33m__alltraps[m+80>:	sd	t2,16(sp)
+   [34m0x8020042e[m <[33m__alltraps[m+82>:	mv	a0,sp
+   [34m0x80200430[m <[33m__alltraps[m+84>:	auipc	ra,0x0
+   [34m0x80200434[m <[33m__alltraps[m+88>:	jalr	1350(ra)
+   [34m0x80200438[m <[33m__restore[m>:	mv	sp,a0
+   [34m0x8020043a[m <[33m__restore[m+2>:	ld	t0,256(sp)
+   [34m0x8020043c[m <[33m__restore[m+4>:	ld	t1,264(sp)
+   [34m0x8020043e[m <[33m__restore[m+6>:	ld	t2,16(sp)
+[34m0x0000000080200428[m in [33m__alltraps[m ()
+[34m0x000000008020042c[m in [33m__alltraps[m ()
+[34m0x000000008020042e[m in [33m__alltraps[m ()
+[34m0x0000000080200430[m in [33m__alltraps[m ()
+[34m0x0000000080200434[m in [33m__alltraps[m ()
+=> [34m0x80200434[m <[33m__alltraps[m+88>:	jalr	1350(ra)
+   [34m0x80200438[m <[33m__restore[m>:	mv	sp,a0
+   [34m0x8020043a[m <[33m__restore[m+2>:	ld	t0,256(sp)
+   [34m0x8020043c[m <[33m__restore[m+4>:	ld	t1,264(sp)
+   [34m0x8020043e[m <[33m__restore[m+6>:	ld	t2,16(sp)
+   [34m0x80200440[m <[33m__restore[m+8>:	csrw	sstatus,t0
+   [34m0x80200444[m <[33m__restore[m+12>:	csrw	sepc,t1
+   [34m0x80200448[m <[33m__restore[m+16>:	csrw	sscratch,t2
+   [34m0x8020044c[m <[33m__restore[m+20>:	ld	ra,8(sp)
+   [34m0x8020044e[m <[33m__restore[m+22>:	ld	gp,24(sp)
+[33mtrap::trap_handler[m ([36mcx[m=0x0) at [32mtrap/src/lib.rs[m:33
+33	pub fn trap_handler(cx: &mut TrapContext) -> &mut TrapContext {
+=> [34m0x80200976[m <[33mtrap::trap_handler[m>:	addi	sp,sp,-592
+   [34m0x8020097a[m <[33mtrap::trap_handler[m+4>:	sd	ra,584(sp)
+   [34m0x8020097e[m <[33mtrap::trap_handler[m+8>:	sd	a0,120(sp)
+   [34m0x80200980[m <[33mtrap::trap_handler[m+10>:	sd	a0,528(sp)
+   [34m0x80200984[m <[33mtrap::trap_handler[m+14>:	auipc	ra,0x0
+   [34m0x80200988[m <[33mtrap::trap_handler[m+18>:	jalr	1114(ra)
+   [34m0x8020098c[m <[33mtrap::trap_handler[m+22>:	sd	a0,128(sp)
+   [34m0x8020098e[m <[33mtrap::trap_handler[m+24>:	j	[34m0x80200990[m <[33mtrap::trap_handler[m+26>
+   [34m0x80200990[m <[33mtrap::trap_handler[m+26>:	auipc	ra,0x0
+   [34m0x80200994[m <[33mtrap::trap_handler[m+30>:	jalr	1062(ra)
+[34m0x000000008020097a[m	33	pub fn trap_handler(cx: &mut TrapContext) -> &mut TrapContext {
+[34m0x000000008020097e[m	33	pub fn trap_handler(cx: &mut TrapContext) -> &mut TrapContext {
+[34m0x0000000080200980[m	33	pub fn trap_handler(cx: &mut TrapContext) -> &mut TrapContext {
+34	    let scause = scause::read();
+35	    let stval = stval::read();
+37	    match scause.cause() {
+52	            error!("unsupported trap");
+Invalid register `stvel'
+ra             0x802009a6	[34m0x802009a6[m <[33mtrap::trap_handler[m+48>
+sp             0x8029c9f0	[34m0x8029c9f0[m <[33mch3::_start::STACK[m+2544>
+gp             0x0	[34m0x0[m
+tp             0x0	[34m0x0[m
+t0             0x200000000	8589934592
+t1             0x0	0
+t2             0x0	0
+fp             0x0	[34m0x0[m
+s1             0x0	0
+a0             0x1	1
+a1             0xb	11
+a2             0x3f	63
+a3             0x0	0
+a4             0x0	0
+a5             0x4008020ab80	4400196135808
+a6             0x8029d000	2150223872
+a7             0x8	8
+s2             0x8029d008	2150223880
+s3             0x80201eb6	2149588662
+s4             0x8029d010	2150223888
+s5             0x8029d020	2150223904
+s6             0x8029d020	2150223904
+s7             0x802014e8	2149586152
+s8             0x8020a118	2149622040
+s9             0x8029d010	2150223888
+s10            0x1	1
+s11            0x1	1
+t3             0x3	3
+t4             0x10000008020a11b	72057596187549979
+t5             0x4	4
+t6             0x8020ab10	2149624592
+pc             0x802009ec	[34m0x802009ec[m <[33mtrap::trap_handler[m+118>
+fflags         0x0	RD:0 NV:0 DZ:0 OF:0 UF:0 NX:0
+frm            0x0	FRM:0 [RNE (round to nearest; ties to even)]
+fcsr           0x0	RD:0 NV:0 DZ:0 OF:0 UF:0 NX:0 FRM:0 [RNE (round to nearest; ties to even)]
+sstatus        0x200000000	8589934592
+sie            0x0	0
+stvec          0x802003dc	2149581788
+scounteren     0x0	0
+sscratch       0x0	0
+sepc           0x0	0
+scause         0x1	1
+stval          0x0	0
+sip            0x0	0
+satp           0x0	0
+mstatus        0xa00000080	SD:0 VM:00 MXR:0 PUM:0 MPRV:0 XS:0 FS:0 MPP:0 HPP:0 SPP:0 MPIE:1 HPIE:0 SPIE:0 UPIE:0 MIE:0 HIE:0 SIE:0 UIE:0
+misa           0x80000000001411ad	RV64ACDFHIMSU
+medeleg        0xf0b5ff	15775231
+mideleg        0x1666	5734
+mie            0x888	2184
+mtvec          0x80002c6d	2147495021
+mcounteren     0x0	0
+mhpmevent3     0x0	0
+mhpmevent4     0x0	0
+mhpmevent5     0x0	0
+mhpmevent6     0x0	0
+mhpmevent7     0x0	0
+mhpmevent8     0x0	0
+mhpmevent9     0x0	0
+mhpmevent10    0x0	0
+mhpmevent11    0x0	0
+mhpmevent12    0x0	0
+mhpmevent13    0x0	0
+mhpmevent14    0x0	0
+mhpmevent15    0x0	0
+mhpmevent16    0x0	0
+mhpmevent17    0x0	0
+mhpmevent18    0x0	0
+mhpmevent19    0x0	0
+mhpmevent20    0x0	0
+mhpmevent21    0x0	0
+mhpmevent22    0x0	0
+mhpmevent23    0x0	0
+mhpmevent24    0x0	0
+mhpmevent25    0x0	0
+mhpmevent26    0x0	0
+mhpmevent27    0x0	0
+mhpmevent28    0x0	0
+mhpmevent29    0x0	0
+mhpmevent30    0x0	0
+mhpmevent31    0x0	0
+mscratch       0x8000e9b8	2147543480
+[mmepc           0x802000ee	2149581038
+mcause         0x9	9
+mtval          0x0	0
+mip            0x0	0
+pmpcfg0        0xf080b00	252185344
+pmpcfg1        Could not fetch register "pmpcfg1"; remote failure reply 'E14'
+pmpcfg2        0x0	0
+pmpcfg3        Could not fetch register "pmpcfg3"; remote failure reply 'E14'
+pmpaddr0       0x0	0
+pmpaddr1       0x20000000	536870912
+pmpaddr2       0x20080000	537395200
+pmpaddr3       0x22000000	570425344
+pmpaddr4       0x0	0
+pmpaddr5       0x0	0
+pmpaddr6       0x0	0
+pmpaddr7       0x0	0
+pmpaddr8       0x0	0
+pmpaddr9       0x0	0
+pmpaddr10      0x0	0
+pmpaddr11      0x0	0
+pmpaddr12      0x0	0
+pmpaddr13      0x0	0
+pmpaddr14      0x0	0
+pmpaddr15      0x0	0
+mcycle         0xbf903d6ec9a2	210626226866594
+minstret       0xbf903d71e2dc	210626227069660
+mhpmcounter3   0x0	0
+mhpmcounter4   0x0	0
+mhpmcounter5   0x0	0
+mhpmcounter6   0x0	0
+mhpmcounter7   0x0	0
+mhpmcounter8   0x0	0
+mhpmcounter9   0x0	0
+mhpmcounter10  0x0	0
+mhpmcounter11  0x0	0
+mhpmcounter12  0x0	0
+mhpmcounter13  0x0	0
+mhpmcounter14  0x0	0
+mhpmcounter15  0x0	0
+mhpmcounter16  0x0	0
+mhpmcounter17  0x0	0
+mhpmcounter18  0x0	0
+mhpmcounter19  0x0	0
+mhpmcounter20  0x0	0
+mhpmcounter21  0x0	0
+mhpmcounter22  0x0	0
+mhpmcounter23  0x0	0
+mhpmcounter24  0x0	0
+mhpmcounter25  0x0	0
+mhpmcounter26  0x0	0
+mhpmcounter27  0x0	0
+mhpmcounter28  0x0	0
+mhpmcounter29  0x0	0
+mhpmcounter30  0x0	0
+mhpmcounter31  0x0	0
+cycle          0xbf903dc73be0	210626232663008
+time           0x164a2f	1460783
+instret        0xbf903dcdfccc	210626233105612
+hpmcounter3    0x0	0
+hpmcounter4    0x0	0
+hpmcounter5    0x0	0
+hpmcounter6    0x0	0
+hpmcounter7    0x0	0
+hpmcounter8    0x0	0
+hpmcounter9    0x0	0
+hpmcounter10   0x0	0
+hpmcounter11   0x0	0
+hpmcounter12   0x0	0
+hpmcounter13   0x0	0
+hpmcounter14   0x0	0
+hpmcounter15   0x0	0
+hpmcounter16   0x0	0
+hpmcounter17   0x0	0
+hpmcounter18   0x0	0
+hpmcounter19   0x0	0
+hpmcounter20   0x0	0
+hpmcounter21   0x0	0
+hpmcounter22   0x0	0
+hpmcounter23   0x0	0
+hpmcounter24   0x0	0
+hpmcounter25   0x0	0
+hpmcounter26   0x0	0
+hpmcounter27   0x0	0
+hpmcounter28   0x0	0
+hpmcounter29   0x0	0
+hpmcounter30   0x0	0
+hpmcounter31   0x0	0
+mvendorid      0x0	0
+marchid        0x0	0
+mimpid         0x0	0
+mhartid        0x0	0
+priv           0x1	prv:1 [Supervisor]
+Stack level 0, frame at 0x8029cc40:
+ pc = 0x802009ec in trap::trap_handler (trap/src/lib.rs:52); saved pc = 0x80200438
+ called by frame at 0x8029cc40
+ source language rust.
+ Arglist at 0x8029cc40, args: [36mcx[m=0x8029cc40 <ch3::_start::STACK+3136>
+ Locals at 0x8029cc40, Previous frame's sp is 0x8029cc40
+ Saved registers:
+  ra at 0x8029cc38, pc at 0x8029cc38Could not fetch register "pmpcfg1"; remote failure reply 'E14'
+52	            error!("unsupported trap");
+
+Program received signal SIGINT, Interrupt.
+[34m0x00000000802003dc[m in [33m__alltraps[m ()
+Detaching from program: /home/jacky/os/Open-source-Operating-System-Boot-Camp-Phase-two/build-os-by-small-crates-jackyliu16/target/riscv64imac-unknown-none-elf/debug/ch3, process 1
+Ending remote debugging.
+[Inferior 1 (process 1) detached]
+Continuing.
+
+Breakpoint 1, [33mSCHEDULE::init[m () at [32mSCHEDULE/time-sharing/src/lib.rs[m:26
+26	    TASK_MANAGER.run_first_task();
+Continuing.
+
+Breakpoint 2, [33mSCHEDULE::app_manager::TaskManager::run_first_task[m ([m
+    [m[36mself[m=0x8029d010 <<SCHEDULE::app_manager::TASK_MANAGER as core::ops::deref::Deref>::deref::__stability::LAZY+16>) at [32mSCHEDULE/time-sharing/src/app_manager.rs[m:66
+66	        let mut inner = self.inner.exclusive_access();
+67	        let task0 = &mut inner.tasks[0];
+69	        task0.task_status = TaskStatus::Running;
+70	        let mut _unused = TaskContext::zero_init();
+71	        let next_task_cx_ptr = &task0.task_cx as *const TaskContext;
+72	        drop(inner);
+75	            __switch(&mut _unused as *mut TaskContext, next_task_cx_ptr);
+=> [34m0x80201a86[m <[33mSCHEDULE::app_manager::TaskManager::run_first_task[m+88>:	ld	a1,0(sp)
+   [34m0x80201a88[m <[33mSCHEDULE::app_manager::TaskManager::run_first_task[m+90>:	addi	a0,sp,48
+   [34m0x80201a8a[m <[33mSCHEDULE::app_manager::TaskManager::run_first_task[m+92>:	auipc	ra,0xfffff
+   [34m0x80201a8e[m <[33mSCHEDULE::app_manager::TaskManager::run_first_task[m+96>:	jalr	-1532(ra)
+   [34m0x80201a92[m <[33mSCHEDULE::app_manager::TaskManager::run_first_task[m+100>:	j	[34m0x80201a94[m <[33mSCHEDULE::app_manager::TaskManager::run_first_task[m+102>
+   [34m0x80201a94[m <[33mSCHEDULE::app_manager::TaskManager::run_first_task[m+102>:	auipc	a1,0x9
+   [34m0x80201a98[m <[33mSCHEDULE::app_manager::TaskManager::run_first_task[m+106>:	addi	a1,a1,972
+   [34m0x80201a9c[m <[33mSCHEDULE::app_manager::TaskManager::run_first_task[m+110>:	auipc	a3,0x9
+   [34m0x80201aa0[m <[33mSCHEDULE::app_manager::TaskManager::run_first_task[m+114>:	addi	a3,a3,980
+   [34m0x80201aa4[m <[33mSCHEDULE::app_manager::TaskManager::run_first_task[m+118>:	addi	a0,sp,160
+[34m0x0000000080201a88[m	75	            __switch(&mut _unused as *mut TaskContext, next_task_cx_ptr);
+[34m0x0000000080201a8a[m	75	            __switch(&mut _unused as *mut TaskContext, next_task_cx_ptr);
+[34m0x0000000080201a8e[m	75	            __switch(&mut _unused as *mut TaskContext, next_task_cx_ptr);
+[36mnext_task_cx_ptr[m = [34m0x8029d020[m <[33m<SCHEDULE::app_manager::TASK_MANAGER as core::ops::deref::Deref>::deref::__stability::LAZY[m+32>
+[36m_unused[m = basic::TaskContext {ra: 0, sp: 0, s: [0 <repeats 12 times>]}
+[36mtask0[m = [34m0x8029d020[m <[33m<SCHEDULE::app_manager::TASK_MANAGER as core::ops::deref::Deref>::deref::__stability::LAZY[m+32>
+[36minner[m = core::cell::RefMut<SCHEDULE::app_manager::TaskManagerInner> {value: core::ptr::non_null::NonNull<SCHEDULE::app_manager::TaskManagerInner> {pointer: [34m0x8029d020[m <[33m<SCHEDULE::app_manager::TASK_MANAGER as core::ops::deref::Deref>::deref::__stability::LAZY[m+32>}, borrow: core::cell::BorrowRefMut {borrow: [34m0x8029d018[m <[33m<SCHEDULE::app_manager::TASK_MANAGER as core::ops::deref::Deref>::deref::__stability::LAZY[m+24>}, marker: core::marker::PhantomData<&mut SCHEDULE::app_manager::TaskManagerInner>}
+$1 = SCHEDULE::app_manager::TaskControlBlock {task_status: SCHEDULE::app_manager::TaskStatus::Running, task_cx: basic::TaskContext {ra: 2149581880, sp: 2149637872, s: [0 <repeats 12 times>]}}
+$2 = SCHEDULE::app_manager::TaskControlBlock {task_status: 0x2, task_cx: basic::TaskContext {ra: 0x80200438, sp: 0x8020def0, s: [0x0 <repeats 12 times>]}}
+Attempt to take contents of a non-pointer value.
+$3 = 2149637872
+=> [34m0x80201a8e[m <[33mSCHEDULE::app_manager::TaskManager::run_first_task[m+96>:	jalr	-1532(ra)
+   [34m0x80201a92[m <[33mSCHEDULE::app_manager::TaskManager::run_first_task[m+100>:	j	[34m0x80201a94[m <[33mSCHEDULE::app_manager::TaskManager::run_first_task[m+102>
+   [34m0x80201a94[m <[33mSCHEDULE::app_manager::TaskManager::run_first_task[m+102>:	auipc	a1,0x9
+   [34m0x80201a98[m <[33mSCHEDULE::app_manager::TaskManager::run_first_task[m+106>:	addi	a1,a1,972
+   [34m0x80201a9c[m <[33mSCHEDULE::app_manager::TaskManager::run_first_task[m+110>:	auipc	a3,0x9
+   [34m0x80201aa0[m <[33mSCHEDULE::app_manager::TaskManager::run_first_task[m+114>:	addi	a3,a3,980
+   [34m0x80201aa4[m <[33mSCHEDULE::app_manager::TaskManager::run_first_task[m+118>:	addi	a0,sp,160
+   [34m0x80201aa6[m <[33mSCHEDULE::app_manager::TaskManager::run_first_task[m+120>:	li	a2,1
+   [34m0x80201aa8[m <[33mSCHEDULE::app_manager::TaskManager::run_first_task[m+122>:	li	a4,0
+   [34m0x80201aaa[m <[33mSCHEDULE::app_manager::TaskManager::run_first_task[m+124>:	auipc	ra,0x0
+
+Program received signal SIGINT, Interrupt.
+[34m0x00000000802003dc[m in [33m__alltraps[m ()
+Undefined command: "nq".  Try "help".
+Undefined command: "y".  Try "help".
+Please answer y or n.
+Detaching from program: /home/jacky/os/Open-source-Operating-System-Boot-Camp-Phase-two/build-os-by-small-crates-jackyliu16/target/riscv64imac-unknown-none-elf/debug/ch3, process 1
+Ending remote debugging.
+[Inferior 1 (process 1) detached]

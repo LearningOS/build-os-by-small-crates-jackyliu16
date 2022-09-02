@@ -62,6 +62,7 @@ impl TaskManager {
     /// pid: alloc but haven't dealloc
     /// 然后我们将对于第一个task的初始化部分放置在其中，就可以相当程度上解决了我们目前所面临的问题
     pub fn run_first_task(&self) -> ! {
+        // debug!("inside run_first_task");
         let mut inner = self.inner.exclusive_access();
         let task0 = &mut inner.tasks[0];
         
@@ -92,6 +93,7 @@ impl TaskManager {
     /// Switch current `Running` task to the task we have found,
     /// or there is no `Ready` task and we can exit with all applications completed
     pub fn run_next_task(&self) -> !{
+        // debug!("inside run_next_task");
         if let Some(next) = self.find_next_task() {
             let mut inner = self.inner.exclusive_access();
             let current = inner.current_task;
@@ -124,12 +126,13 @@ impl TaskManager {
         inner.tasks[current].task_status = TaskStatus::Exited;        
     }
 
-    pub fn print_app_info(&self) {
-        let inner = self.inner.exclusive_access();
-        for i in inner.tasks {
-            debug!("=====");
-            debug!("ra: {:?}, sp: {:?}, s: {:?}", i.task_cx.ra, i.task_cx.sp, i.task_cx.s);
-        }
-    }
+    // pub fn print_app_info(&self) {
+        // debug!("inside print_app_info");
+        // let inner = self.inner.exclusive_access();
+        // for i in inner.tasks {
+        //     debug!("=====");
+        //     debug!("ra: {:?}, sp: {:?}, s: {:?}", i.task_cx.ra, i.task_cx.sp, i.task_cx.s);
+        // }
+    // }
 
 }

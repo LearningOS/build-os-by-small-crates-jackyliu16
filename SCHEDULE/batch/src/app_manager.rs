@@ -109,9 +109,9 @@ pub fn run_next_app() -> ! {
         panic!("all application has been run successed");
     }
     debug!("you are now running application: {}", current_app);
-    // unsafe {
-    //     apps.load(current_app);
-    // }
+    unsafe {
+        apps.load(current_app);
+    }
     // copy app instruction to APP_BASR_ADDRESS
     app_manager.move_to_next_app();                 // add account
     drop(app_manager);

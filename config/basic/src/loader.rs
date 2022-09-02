@@ -10,7 +10,7 @@ use crate::APP_SIZE_LIMIT;
 use output::log::*;
 impl AppMeta {
     pub unsafe fn load(&self, i: usize) -> usize {
-        debug!("base: {:#X}, step: {:#X}, count: {:#X}", self.base, self.step, self.count);
+        debug!("base: {:#X}, step: {:#X}, count: {}", self.base, self.step, self.count);
         // get apps location list
         let slice = core::slice::from_raw_parts(
             &self.first as *const _ as *const usize,
@@ -18,11 +18,12 @@ impl AppMeta {
         );
         // find the location and count for it's address
 
+        use crate::APP_BASE_ADDRESS;
         let pos = slice[i];
         let size = slice[i + 1] - pos;
-        // let base = APP_BASE_ADDRESS;
-        let base = self.base as usize + i * self.step as usize;
-        debug!("build application : {} in {}", i, base);
+        let base = APP_BASE_ADDRESS;
+        // let base = self.base as usize + i * self.step as usize;
+        debug!("build application : {} in {:#X}", i, base);
 
         core::ptr::copy_nonoverlapping::<u8>(pos as _, base as _, size);
         // TODO: 这个地方根据ydrMaster提出的，清零其他需要用到的区域的说法，我感觉不大需要在我的程序中用到
