@@ -18,6 +18,7 @@ impl AppMeta {
         );
         // find the location and count for it's address
 
+        #[allow(unused_imports)]
         use crate::APP_BASE_ADDRESS;
         let pos = slice[i];
         let size = slice[i + 1] - pos;

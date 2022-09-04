@@ -23,7 +23,7 @@ pub fn init() {
         stvec::write(__alltraps as usize, TrapMode::Direct);
     }
 }
-
+use output::println;
 /// Trap 处理的总体流程如下：
 /// 首先通过 __alltraps 将 Trap 上下文保存在内核栈上，
 /// 然后跳转到使用 Rust 编写的 trap_handler 函数完成 Trap 分发及处理。
@@ -36,6 +36,7 @@ pub fn trap_handler(cx: &mut TrapContext) -> &mut TrapContext {
     // debug!("inside trap handler");
     match scause.cause() {
         Trap::Exception(Exception::UserEnvCall) => {
+            // println!("using environment call");
             // debug!("using environment call");
             cx.sepc += 4;
             cx.x[10] = syscall_handler(cx.x[17].into(), [cx.x[10], cx.x[11], cx.x[12]]) as usize;

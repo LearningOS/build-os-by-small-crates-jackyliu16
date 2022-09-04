@@ -7,7 +7,7 @@ use output::log::*;
 
 #[no_mangle]
 fn main() -> i32 {
-    debug!("hello, world");
+    // debug!("hello, world");
     println!("Hello, world!");
     0
 }

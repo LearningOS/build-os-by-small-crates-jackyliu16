@@ -8,6 +8,7 @@ use user_lib::{clock_gettime, sched_yield, ClockId, TimeSpec};
 
 #[no_mangle]
 fn main() -> i32 {
+    println!("inside 11 sleep");
     let mut time: TimeSpec = TimeSpec::ZERO;
     clock_gettime(ClockId::CLOCK_MONOTONIC, &mut time as *mut _ as _);
     let time = time + TimeSpec::SECOND;

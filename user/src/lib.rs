@@ -2,7 +2,7 @@
 #![feature(linkage)]
 #![feature(panic_info_message)]
 
-pub use output::{print, println, log::*};
+pub use output::{print, println};
 pub use syscall::*;
 
 #[no_mangle]
@@ -37,13 +37,13 @@ struct Console;
     impl output::Console for Console {
     #[inline]
     fn put_char(&self, c: u8) {
-        debug!("call from put_char");
+        // debug!("call from put_char");
         syscall::write(0, &[c]);
     }
 
     #[inline]
     fn put_str(&self, s: &str) {
-        debug!("call from put_str");
+        // debug!("call from put_str");
         syscall::write(0, s.as_bytes());
     }
 }
