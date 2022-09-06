@@ -68,7 +68,35 @@ impl BuildArgs {
         let mut env: HashMap<&str, OsString> = HashMap::new();
         let package = match self.ch {
             1 => if self.lab { "ch1-lab" } else { "ch1" }.to_string(),
-            2 | 3 | 4 => {
+            2 => {
+                user::build_for(self.ch, false);
+                env.insert(
+                    "APP_ASM",
+                    TARGET
+                        .join("debug")
+                        .join("app.asm")
+                        .as_os_str()
+                        .to_os_string(),
+                );
+                env.insert(
+                    "TRAP",
+                    TARGET
+                        .join("debug")
+                        .join("trap_2.S")
+                        .as_os_str()
+                        .to_os_string(),
+                );
+                env.insert(
+                    "SWITCH",
+                    TARGET
+                        .join("debug")
+                        .join("switch.S")
+                        .as_os_str()
+                        .to_os_string(),
+                );
+                format!("ch{}", self.ch)
+            }
+            3 | 4 => {
                 user::build_for(self.ch, false);    // adding a ld file into PathBuf
                 env.insert(
                     "APP_ASM",
@@ -82,7 +110,7 @@ impl BuildArgs {
                     "TRAP",
                     TARGET
                         .join("debug")
-                        .join("trap.S")
+                        .join("trap_3.S")
                         .as_os_str()
                         .to_os_string(),
                 );

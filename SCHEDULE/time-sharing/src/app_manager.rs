@@ -29,23 +29,20 @@ pub enum TaskStatus {
 use crate::config::init_app_cx;
 lazy_static! {
     pub static ref TASK_MANAGER: TaskManager = {
-        extern "C" {
-            static apps: basic::AppMeta;
-        }
-        let num_app = unsafe { apps.len() };
+        let num_app = get_app_num();
         let mut tasks = [TaskControlBlock {
             task_cx: TaskContext::zero_init(),
         task_status: TaskStatus::UnInit,
         }; MAX_APP_NUM];
-        for i in 0..num_app {
-            unsafe { apps.load(i); }
+        for i in 0..get_app_num() {
+            load_app(i, APP_SIZE_LIMIT);
         }
         for (i, t) in tasks.iter_mut().enumerate().take(num_app) {
             t.task_cx = TaskContext::goto_restore(init_app_cx(i));
             t.task_status = TaskStatus::Ready;
         }
         TaskManager {
-            num_app: unsafe { apps.len() },
+            num_app,
             inner: unsafe {
                 UPSafeCell::new(TaskManagerInner {
                     tasks, 
@@ -97,7 +94,7 @@ impl TaskManager {
         if let Some(next) = self.find_next_task() {
             let mut inner = self.inner.exclusive_access();
             let current = inner.current_task;
-            // self.record_current_first_run_time(next);
+            
             inner.tasks[next].task_status = TaskStatus::Running;
             inner.current_task = next;
 
@@ -125,14 +122,4 @@ impl TaskManager {
         let current = inner.current_task;
         inner.tasks[current].task_status = TaskStatus::Exited;        
     }
-
-    // pub fn print_app_info(&self) {
-        // debug!("inside print_app_info");
-        // let inner = self.inner.exclusive_access();
-        // for i in inner.tasks {
-        //     debug!("=====");
-        //     debug!("ra: {:?}, sp: {:?}, s: {:?}", i.task_cx.ra, i.task_cx.sp, i.task_cx.s);
-        // }
-    // }
-
 }

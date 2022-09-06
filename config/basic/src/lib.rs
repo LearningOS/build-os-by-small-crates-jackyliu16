@@ -7,8 +7,6 @@
 /// 3. TrapContext
 /// 4. panic_handler
 
-mod loader;
-pub use loader::*;
 
 /// static variable configuration 
 pub const USER_STACK_SIZE: usize = 4096;
@@ -138,3 +136,17 @@ impl TaskContext {
     }
 }
 
+// apps load
+mod loader;
+extern "C" {
+    static apps: loader::AppMeta;
+}
+pub fn show_load_info(){
+    unsafe { apps.show_origin_load_info(); }
+}
+pub fn load_app(i: usize, step: usize) -> usize {
+    unsafe { apps.load(i, step) }
+}
+pub fn get_app_num() -> usize {
+    unsafe { apps.len() }
+}

@@ -23,6 +23,7 @@ use app_manager::TASK_MANAGER;
 pub fn init() { 
     // info!("using init function from time-sharing");
     // TASK_MANAGER.print_app_info();
+    basic::show_load_info();
     TASK_MANAGER.run_first_task();
 }
 

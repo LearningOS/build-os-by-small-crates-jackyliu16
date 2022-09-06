@@ -9,8 +9,10 @@ use output::log::*;
 use config::SCHEDULE;
 
 // 内联app.asm 进到程序中来
-core::arch::global_asm!(include_str!(env!("APP_ASM")));     // using by batch
-core::arch::global_asm!(include_str!(env!("TRAP")));        // using by batch
+core::arch::global_asm!(include_str!(env!("APP_ASM")));     
+core::arch::global_asm!(include_str!(env!("TRAP")));       
+core::arch::global_asm!(include_str!(env!("SWITCH")));
+
 
 #[naked]
 #[no_mangle]

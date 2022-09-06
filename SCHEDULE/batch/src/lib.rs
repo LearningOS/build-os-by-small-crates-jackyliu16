@@ -17,33 +17,21 @@ mod syscall_provide;
 #[macro_use]
 use output::log::*;
 use app_manager::{print_app_info, run_next_app};
-use riscv::register::{mtvec::TrapMode, stvec};
 
 // 基于我的设想，这三种不同的调用是提供给所有对象的，所有对象都可以使用这三种操作。
 // 针对于系统调用访民啊的操作，主要基于
 pub fn init() { 
     info!("using init function from batch");
-    // extern "C" {
-    //     static apps: basic::AppMeta;
-    // }
-    // unsafe {
-    //     debug!("base: {:#X}, step: {:#X}, count: {:#X}", apps.base, apps.step, apps.count);
-    //     debug!("apps.len{}", apps.len());
-    //     for i in 0..apps.len() {
-    //         apps.load(i);
-    //     }
-    // }
-    // print_app_info();
     run_next_app();
 }
 
 pub fn suspend_run_next() -> !{
-    // error!("using suspend_run_next which haven't been realize in batch");
+    error!("using suspend_run_next which haven't been realize in batch");
     run_next_app();
 }
 
 pub fn exit_run_next() -> ! {
-    // info!("exit and run next application:");
+    info!("exit and run next application:");
     run_next_app();
 }
 
