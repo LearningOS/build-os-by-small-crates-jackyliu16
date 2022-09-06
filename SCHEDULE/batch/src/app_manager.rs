@@ -13,14 +13,14 @@ struct AppManager {
 impl AppManager {
     // prints total app number, and their start and end addresses
     pub fn print_app_info(&self) {
-        info!("[kernel] num_app = {}", self.num_app);
+        // info!("[kernel] num_app = {}", self.num_app);
         for i in 0..self.num_app {
-            info!(
-                "[kernel] app_{} [{:#x}, {:#x})",
-                i,
-                self.app_start[i],
-                self.app_start[i + 1]
-            );
+            // info!(
+            //     "[kernel] app_{} [{:#x}, {:#x})",
+            //     i,
+            //     self.app_start[i],
+            //     self.app_start[i + 1]
+            // );
         }
         // debug!("KERNEL_STACK:{:X}", KERNEL_STACK.get_sp());
         // debug!("USER_STACK:{:X}", USER_STACK.get_sp());
@@ -108,9 +108,9 @@ pub fn run_next_app() -> ! {
         // debug!("inside");
         panic!("all application has been run successed");
     }
-    debug!("you are now running application: {}", current_app);
+    // debug!("you are now running application: {}", current_app);
     unsafe {
-        apps.load(current_app);
+        apps.load(current_app, 0);
     }
     // copy app instruction to APP_BASR_ADDRESS
     app_manager.move_to_next_app();                 // add account
@@ -122,8 +122,8 @@ pub fn run_next_app() -> ! {
     unsafe {
         // push TrapContext into kernelStack
         __restore(KERNEL_STACK[current_app].push_context(TrapContext::app_init_context(
-            get_base_i(current_app),
-            // APP_BASE_ADDRESS,
+            // get_base_i(current_app),
+            APP_BASE_ADDRESS,
             USER_STACK[current_app].get_sp(),
         )) as *const _ as usize);
     }

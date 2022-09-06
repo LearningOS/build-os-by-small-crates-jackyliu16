@@ -9,7 +9,7 @@ pub struct AppMeta {
 use crate::APP_SIZE_LIMIT;
 use output::log::*;
 impl AppMeta {
-    pub unsafe fn load(&self, i: usize) -> usize {
+    pub unsafe fn load(&self, i: usize, step: usize) -> usize {
         debug!("base: {:#X}, step: {:#X}, count: {}", self.base, self.step, self.count);
         // get apps location list
         let slice = core::slice::from_raw_parts(
@@ -23,7 +23,7 @@ impl AppMeta {
         let pos = slice[i];
         let size = slice[i + 1] - pos;
         // let base = APP_BASE_ADDRESS;
-        let base = self.base as usize + i * self.step as usize;
+        let base = self.base as usize + i * step as usize;
         debug!("build application : {} in {:#X}", i, base);
 
         core::ptr::copy_nonoverlapping::<u8>(pos as _, base as _, size);

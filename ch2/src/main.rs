@@ -62,7 +62,7 @@ extern "C" fn primary_rust_main() -> ! {
     warn!("[KERNEL] you are now inside the main function");
     debug!("[KERNEL] you are now inside the main function");
     
-    trap::init();
+    trap::init();   // init stvec
     SCHEDULE::init();
 
     system_reset(RESET_TYPE_SHUTDOWN, RESET_REASON_NO_REASON);

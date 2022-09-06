@@ -23,27 +23,27 @@ use riscv::register::{mtvec::TrapMode, stvec};
 // 针对于系统调用访民啊的操作，主要基于
 pub fn init() { 
     info!("using init function from batch");
-    extern "C" {
-        static apps: basic::AppMeta;
-    }
-    unsafe {
-        debug!("base: {:#X}, step: {:#X}, count: {:#X}", apps.base, apps.step, apps.count);
-        debug!("apps.len{}", apps.len());
-        for i in 0..apps.len() {
-            apps.load(i);
-        }
-    }
-    print_app_info();
+    // extern "C" {
+    //     static apps: basic::AppMeta;
+    // }
+    // unsafe {
+    //     debug!("base: {:#X}, step: {:#X}, count: {:#X}", apps.base, apps.step, apps.count);
+    //     debug!("apps.len{}", apps.len());
+    //     for i in 0..apps.len() {
+    //         apps.load(i);
+    //     }
+    // }
+    // print_app_info();
     run_next_app();
 }
 
 pub fn suspend_run_next() -> !{
-    error!("using suspend_run_next which haven't been realize in batch");
+    // error!("using suspend_run_next which haven't been realize in batch");
     run_next_app();
 }
 
 pub fn exit_run_next() -> ! {
-    info!("exit and run next application:");
+    // info!("exit and run next application:");
     run_next_app();
 }
 
