@@ -8,7 +8,7 @@ use command_ext::{BinUtil, Cargo, CommandExt, Qemu};
 use once_cell::sync::Lazy;
 use std::{
     collections::HashMap,
-    ffi::OsString,
+    ffi::{OsStr, OsString},
     path::{Path, PathBuf},
     // fs::canonicalize,
 };
@@ -66,6 +66,17 @@ struct BuildArgs {
 impl BuildArgs {
     fn make(&self) -> PathBuf {
         let mut env: HashMap<&str, OsString> = HashMap::new();
+
+        // create a chapter environment
+        // let ch_str = &self.ch.to_string()[..];
+        // let ch_os_string = OsString::from(ch_str);
+        // // let ch_os_str: OsString = ch_str.to_os_string();
+        // env.insert(
+        //     "CH", 
+        //     ch_os_string,
+        // );
+
+        
         let package = match self.ch {
             1 => if self.lab { "ch1-lab" } else { "ch1" }.to_string(),
             2 => {

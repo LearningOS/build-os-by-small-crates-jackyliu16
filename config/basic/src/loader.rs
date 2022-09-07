@@ -9,6 +9,7 @@ pub struct AppMeta {
 use crate::APP_SIZE_LIMIT;
 use output::log::*;
 impl AppMeta {
+    /// show build information 
     pub unsafe fn show_origin_load_info(&self) {
         let slice = core::slice::from_raw_parts(
             &self.first as *const _ as *const usize,
@@ -24,6 +25,7 @@ impl AppMeta {
         }
     }
 
+    /// get information from AppMeta and load it in APP_BASE_ADDRESS with step
     pub unsafe fn load(&self, i: usize, step: usize) -> usize {
         // get apps location list
         let slice = core::slice::from_raw_parts(

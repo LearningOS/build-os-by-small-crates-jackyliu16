@@ -9,9 +9,9 @@ use output::log::*;
 use config::SCHEDULE;
 
 // 内联app.asm 进到程序中来
-core::arch::global_asm!(include_str!(env!("APP_ASM")));     // using by batch
-core::arch::global_asm!(include_str!(env!("TRAP")));        // using by batch
-core::arch::global_asm!(include_str!(env!("SWITCH")));        // using by batch
+core::arch::global_asm!(include_str!(env!("APP_ASM")));     
+core::arch::global_asm!(include_str!(env!("TRAP")));        
+core::arch::global_asm!(include_str!(env!("SWITCH"))); 
 
 #[naked]
 #[no_mangle]
@@ -36,14 +36,6 @@ unsafe extern "C" fn _start() -> ! {
 }
 
 fn clear_bss() {
-    // extern "C" {
-    //     fn sbss();
-    //     fn ebss();
-    // }
-    // unsafe {
-    //     core::slice::from_raw_parts_mut(sbss as usize as *mut u8, ebss as usize - sbss as usize)
-    //         .fill(0);
-    // }
     extern "C" {
         static mut sbss: u64;
         static mut ebss: u64;

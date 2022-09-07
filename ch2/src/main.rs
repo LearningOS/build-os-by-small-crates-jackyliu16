@@ -37,14 +37,6 @@ unsafe extern "C" fn _start() -> ! {
 }
 
 fn clear_bss() {
-    // extern "C" {
-    //     fn sbss();
-    //     fn ebss();
-    // }
-    // unsafe {
-    //     core::slice::from_raw_parts_mut(sbss as usize as *mut u8, ebss as usize - sbss as usize)
-    //         .fill(0);
-    // }
     extern "C" {
         static mut sbss: u64;
         static mut ebss: u64;
@@ -53,6 +45,8 @@ fn clear_bss() {
 }
 
 extern "C" fn primary_rust_main() -> ! {
+    // println!("ch: {}", env!("CH"));
+
     clear_bss();
     output::init_console(&Console);
     // output::set_log_level(option_env!("Info"));
